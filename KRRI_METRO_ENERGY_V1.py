@@ -47,8 +47,8 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.metrics import mean_squared_log_error
 from PIL import Image
-# from tkinter.tix import COLUMN
-# from pyparsing import empty
+from tkinter.tix import COLUMN
+from pyparsing import empty
 
 pd.set_option('display.float_format', '{:,.2f}'.format)
 
