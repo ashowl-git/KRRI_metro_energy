@@ -34,7 +34,7 @@ from datetime import datetime
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 # init_notebook_mode(connected=True)
 # # Use Plotly locally
-cf.go_offline()
+# cf.go_offline()
 
 
 # 사이킷런 라이브러리 불러오기 _ 통계, 학습 테스트세트 분리, 선형회귀등
@@ -47,8 +47,8 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.metrics import mean_squared_log_error
 from PIL import Image
-from tkinter.tix import COLUMN
-from pyparsing import empty
+# from tkinter.tix import COLUMN
+# from pyparsing import empty
 
 pd.set_option('display.float_format', '{:,.2f}'.format)
 
