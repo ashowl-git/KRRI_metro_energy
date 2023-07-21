@@ -47,7 +47,6 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.metrics import mean_squared_log_error
 from PIL import Image
-from tkinter.tix import COLUMN
 from pyparsing import empty
 
 pd.set_option('display.float_format', '{:,.2f}'.format)
@@ -105,13 +104,13 @@ st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 tab0, tab1, tab2, tab3 = st.tabs(['프로그램 개요','에너지성능 분석', '신재생용량산정', '개선효과 분석'])
 
 #                                                                                                                                                                                                            필요한 데이터 불러오기
-DF1 = pd.read_excel('../data/일사량DB.xlsx')
-DF2 = pd.read_excel('../data/경사일사량DB.xlsx')
-DF3 = pd.read_excel('../data/맑은날DB.xlsx')
+DF1 = pd.read_excel('data/일사량DB.xlsx')
+DF2 = pd.read_excel('data/경사일사량DB.xlsx')
+DF3 = pd.read_excel('data/맑은날DB.xlsx')
 
-DF5 = pd.read_excel('../data/신재생DB.xlsx')
-DF6 = pd.read_excel('../data/제로db.xlsx')
-DF7 = pd.read_excel('../data/가격DB.xlsx')  
+DF5 = pd.read_excel('data/신재생DB.xlsx')
+DF6 = pd.read_excel('data/제로db.xlsx')
+DF7 = pd.read_excel('data/가격DB.xlsx')  
 
 with tab0 : 
     empty1, con1, empty2 = st.columns([0.1, 1.0, 0.1])
@@ -141,7 +140,7 @@ with tab0 :
 with tab1 : 
 
     # 학습파일 불러오기
-    df_raw = pd.read_excel('../data/metro_sim_month.xlsx')
+    df_raw = pd.read_excel('data/metro_sim_month.xlsx')
 
     box_학습데이터_업로드 = st.checkbox('학습 데이터 업로드(필요시 체크)')
     if box_학습데이터_업로드 : 
