@@ -16,5 +16,4 @@ xlsxwriter
 py3d
 obj2html
 google-cloud-storage
-tk
 pyparsing
