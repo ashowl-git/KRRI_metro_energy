@@ -54,13 +54,13 @@ st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
 tab0, tab1, tab2, tab3 = st.tabs(['프로그램 개요','에너지성능 분석', '신재생용량산정', '개선효과 분석'])
 
-#                                                                                                                                                                                                            필요한 데이터 불러오기
-DF1 = pd.read_excel('data/sun_DB.xlsx')
-DF2 = pd.read_excel('data/경사일사량DB.xlsx')
-DF3 = pd.read_excel('data/맑은날DB.xlsx')
-DF5 = pd.read_excel('data/신재생DB.xlsx')
-DF6 = pd.read_excel('data/제로db.xlsx')
-DF7 = pd.read_excel('data/price_db.xlsx')  
+#              df_raw = pd.read_excel('data/OD_data2.xlsx', sheet_name='01_Childcare_centers')                                                                                                                                                                                               필요한 데이터 불러오기
+DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
+DF2 = pd.read_excel('data/DB.xlsx', sheet_name='02_sun2') #경사일사량
+DF3 = pd.read_excel('data/DB.xlsx', sheet_name='03_clearsky') # 맑은날
+DF5 = pd.read_excel('data/DB.xlsx', sheet_name='04_renewable') # 신재생
+DF6 = pd.read_excel('data/DB.xlsx', sheet_name='05_zero') # 신재생
+DF7 = pd.read_excel('data/DB.xlsx', sheet_name='06_price') # 가격
 
 with tab0 : 
     empty1, con1, empty2 = st.columns([0.1, 1.0, 0.1])
