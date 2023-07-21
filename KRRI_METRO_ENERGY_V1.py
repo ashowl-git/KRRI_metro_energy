@@ -54,7 +54,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
 tab0, tab1, tab2, tab3 = st.tabs(['프로그램 개요','에너지성능 분석', '신재생용량산정', '개선효과 분석'])
 
-#              df_raw = pd.read_excel('data/OD_data2.xlsx', sheet_name='01_Childcare_centers')                                                                                                                                                                                               필요한 데이터 불러오기
+#                                                                                                                                                                                                          필요한 데이터 불러오기
 DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
 DF2 = pd.read_excel('data/DB.xlsx', sheet_name='02_sun2') #경사일사량
 DF3 = pd.read_excel('data/DB.xlsx', sheet_name='03_clearsky') # 맑은날
