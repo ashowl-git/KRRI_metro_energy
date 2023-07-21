@@ -1,10 +1,4 @@
-              # 분석전에 필요한 라이브러리들을 불러오기plt
-# 테스트
-# plotly라이브러리가 없다면 아래 설치
-# conda install -c plotly plotly=4.12.0
-# conda install -c conda-forge cufflinks-py
-# conda install seaborn
-   
+
 import glob 
 import os
 import sys, subprocess
@@ -15,10 +9,6 @@ import pandas as pd
 import streamlit as st
 import sklearn
 import seaborn as sns
-# sns.set(font="D2Coding") 
-# sns.set(font="Malgun Gothic") 
-# from IPython.display import set_matplotlib_formats
-# set_matplotlib_formats("retina")
 import matplotlib.pyplot as plt
 import plotly.io as pio
 import plotly.express as px
@@ -27,15 +17,7 @@ import chart_studio.plotly as py
 import cufflinks as cf
 import math
 from datetime import datetime
-# # get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# # Make Plotly work in your Jupyter Notebook
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-# init_notebook_mode(connected=True)
-# # Use Plotly locally
-# cf.go_offline()
-
 
 # 사이킷런 라이브러리 불러오기 _ 통계, 학습 테스트세트 분리, 선형회귀등
 from scipy import stats
@@ -50,29 +32,6 @@ from PIL import Image
 from pyparsing import empty
 
 pd.set_option('display.float_format', '{:,.2f}'.format)
-
-# import streamlit as st
-
-# def main_page():
-#     st.markdown("# Main page 🎈")
-#     st.sidebar.markdown("# Main page 🎈")
-
-# def page2():
-#     st.markdown("# Page 2 ❄️")
-#     st.sidebar.markdown("# Page 2 ❄️")
-
-# def page3():
-#     st.markdown("# Page 3 🎉")
-#     st.sidebar.markdown("# Page 3 🎉")
-
-# page_names_to_funcs = {
-#     "Main Page": main_page,
-#     "Page 2": page2,
-#     "Page 3": page3,
-# }
-
-# selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
-# page_names_to_funcs[selected_page]()
 
 
 # # hide the hamburger menu? hidden or visible
@@ -93,24 +52,16 @@ hide_menu_style = """
 st.set_page_config(layout="wide", page_title="KRRI_metro_Energy")
 st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
-
-
-
-
-
-
-
-
 tab0, tab1, tab2, tab3 = st.tabs(['프로그램 개요','에너지성능 분석', '신재생용량산정', '개선효과 분석'])
 
 #                                                                                                                                                                                                            필요한 데이터 불러오기
-DF1 = pd.read_excel('data/일사량DB.xlsx')
-DF2 = pd.read_excel('data/경사일사량DB.xlsx')
+DF1 = pd.read_excel('../data/일사량DB.xlsx')
+DF2 = pd.read_excel('../data/경사일사량DB.xlsx')
 DF3 = pd.read_excel('data/맑은날DB.xlsx')
 
-DF5 = pd.read_excel('data/신재생DB.xlsx')
-DF6 = pd.read_excel('data/제로db.xlsx')
-DF7 = pd.read_excel('data/가격DB.xlsx')  
+DF5 = pd.read_excel('../data/신재생DB.xlsx')
+DF6 = pd.read_excel('../data/제로db.xlsx')
+DF7 = pd.read_excel('../data/가격DB.xlsx')  
 
 with tab0 : 
     empty1, con1, empty2 = st.columns([0.1, 1.0, 0.1])
