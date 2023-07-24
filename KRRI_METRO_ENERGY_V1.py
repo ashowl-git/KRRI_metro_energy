@@ -228,23 +228,23 @@ with tab1 :
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
         # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
-            Ground = st.select_slider('지하유무', options=[0, 1])
-            ACH50 = st.number_input('침기율(ACH)', 0, 50, 25)
-            Pump_efficiency = st.number_input('펌프효율', 0.0, 1.0, 0.7)
+            Ground = st.select_slider('지하유무_개선전', options=[0, 1])
+            ACH50 = st.number_input('침기율(ACH/50pa)_개선전', 0, 50, 25)
+            Pump_efficiency = st.number_input('펌프효율_개선전', 0.0, 1.0, 0.7)
             
         with con2 : 
-            Basement = st.select_slider('지상유무', options=[0, 1])
-            Chiller_COP = st.number_input('냉동기(COP)', 4, 9, 6)
-            heat_recover_effectiveness = st.number_input('전열교환효율', 0.0, 1.0, 0.7)
+            Basement = st.select_slider('지상유무_개선전', options=[0, 1])
+            Chiller_COP = st.number_input('냉동기(COP)_개선전', 4, 9, 6)
+            heat_recover_effectiveness = st.number_input('전열교환효율_개선전', 0.0, 1.0, 0.7)
        
         with con3 : 
-            Floor = st.select_slider('지상층수', options=[1,2,3])
-            Fan_total_efficiency = st.number_input('팬효율', 0.0, 1.0, 0.7)
-            Lighting_power_density_ = st.number_input('조명밀도(W)', 3, 20, 7)
+            Floor = st.select_slider('전체층규모_개선전', options=[1,2,3,4,5])
+            Fan_total_efficiency = st.number_input('팬효율_개선전', 0.0, 1.0, 0.7)
+            Lighting_power_density_ = st.number_input('조명밀도(W)_개선전', 3, 20, 7)
       
         with con4 :
-            AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무', options=[0, 1])     
-            Occupied_floor_area = st.number_input('공조면적(㎡)', 0, 100000, 6000)
+            AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
+            Occupied_floor_area = st.number_input('공조면적(㎡)_개선전', 0, 100000, 6000)
             
 
             data = {'ACH50': ACH50,
@@ -274,24 +274,24 @@ with tab1 :
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
             # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
-            Ground_2 = st.select_slider('지하유무_2', options=[0, 1]) 
-            ACH50_2 = st.number_input('침기율_2', 0, 50, 25)
-            Pump_efficiency_2 = st.number_input('펌프효율_2', 0.0, 1.0, 0.7)
+            Ground_2 = st.select_slider('지하유무_개선후', options=[0, 1]) 
+            ACH50_2 = st.number_input('침기율(ACH/50pa)_개선후', 0, 50, 25)
+            Pump_efficiency_2 = st.number_input('펌프효율_개선후', 0.0, 1.0, 0.7)
             
         with con2 : 
-            Basement_2 = st.select_slider('지상유무_2', options=[0, 1])
-            Chiller_COP_2 = st.number_input('냉동기(COP)_2', 4, 9, 6)
-            heat_recover_effectiveness_2 = st.number_input('전열교환효율_2', 0.0, 1.0, 0.7)
+            Basement_2 = st.select_slider('지상유무_개선후', options=[0, 1])
+            Chiller_COP_2 = st.number_input('냉동기(COP)_개선후', 4, 9, 6)
+            heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선후', 0.0, 1.0, 0.7)
             
         with con3 :  
-            Floor_2 = st.select_slider('지상층수_2', options=[1,2,3])   
-            Fan_total_efficiency_2 = st.number_input('팬효율_2', 0.0, 1.0, 0.7)
-            Lighting_power_density__2 = st.number_input('조명밀도(W)_2', 3, 20, 7)
+            Floor_2 = st.select_slider('지상층수_개선후', options=[1,2,3])   
+            Fan_total_efficiency_2 = st.number_input('팬효율_개선후', 0.0, 1.0, 0.7)
+            Lighting_power_density__2 = st.number_input('조명밀도(W)_개선후', 3, 20, 7)
             
             
         with con4 :   
-            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_2', options=[0, 1])
-            Occupied_floor_area_2 = st.number_input('공조면적(㎡)_2', 0, 100000, 6000)
+            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선후', options=[0, 1])
+            Occupied_floor_area_2 = st.number_input('공조면적(㎡)_개선후', 0, 100000, 6000)
 
             
 
