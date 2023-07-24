@@ -284,7 +284,7 @@ with tab1 :
             heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선후', 0.0, 1.0, 0.7)
             
         with con3 :  
-            Floor_2 = st.select_slider('지상층수_개선후', options=[1,2,3])   
+            Floor_2 = st.select_slider('지상층수_개선후', options=[1,2,3,4,5])   
             Fan_total_efficiency_2 = st.number_input('팬효율_개선후', 0.0, 1.0, 0.7)
             Lighting_power_density__2 = st.number_input('조명밀도(W)_개선후', 3, 20, 7)
             
