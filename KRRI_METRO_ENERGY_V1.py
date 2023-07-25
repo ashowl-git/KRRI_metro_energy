@@ -500,7 +500,6 @@ with tab1 :
     h.drop(ss, inplace=True)
     hh=h['kW/m2'].sum()*2.75
 
-
     # 개선후 소요량 합계(Room_Elec제외 합계값 X 보정계수 곱) = ii
     i = DF4.loc[(DF4['Alt'] == '개선후')]
     spac= i[i['index'].str.contains('Room_Elec')].index
@@ -548,11 +547,11 @@ with tab1 :
 
 with tab2 :
     
-    box1 = st.checkbox('태양광 사양')
+    box1 = st.checkbox('태양광 모듈 사양')
     if box1 : 
         #설정바 만들기
         st.caption('--------', unsafe_allow_html=False)
-        st.subheader('■ 태양광 사양 상세입력')
+        st.subheader('■ 태양광 개별 모듈 사양 상세입력')
         
         con10, con11, con12 = st.columns(3)
         with con10 : 
@@ -647,6 +646,7 @@ with tab2 :
 
     #일일발전량_월간발전량 합치기 
     eeeee = pd.concat([ee, gg],axis=1, join='inner')
+
 
     #필요 태양광 용량 산정하기
     #모듈 1개당 년간발전량
