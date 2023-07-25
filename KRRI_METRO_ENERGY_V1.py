@@ -221,7 +221,7 @@ with tab1 :
     # base 모델 streamlit 인풋
     st.caption(' ', unsafe_allow_html=False)
     st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 개선전 정보입력')
+    st.subheader('■ 개선전 정보입력') 
     
         
     def user_input_features():
