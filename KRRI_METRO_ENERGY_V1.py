@@ -248,7 +248,7 @@ with tab1 :
     # base 모델 streamlit 인풋
     st.caption(' ', unsafe_allow_html=False)
     st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 개선전 정보입력')
+    st.subheader('■ 현 철도역사 건물 정보입력')
     
         
     def user_input_features():
@@ -611,8 +611,7 @@ with tab2 :
     ss= h[h['index'].str.contains('Room_Elec')].index
     h.drop(ss, inplace=True)
     hh=h['kW/m2'].sum()*2.75
-
-
+    
     # 개선후 소요량 합계(Room_Elec제외 합계값 X 보정계수 곱) = ii
     i = DF4.loc[(DF4['Alt'] == '개선후')]
     spac= i[i['index'].str.contains('Room_Elec')].index
@@ -713,66 +712,29 @@ with tab2 :
     result2 = pd.concat([result,mmm])
     ## result2
 
-    #항목1_제로에너지 
-    st.text('항목1. 선택한 ZEB등급 취득을 위해 필요한 에너지 생산량(개선후 기준, 단위: kWh/㎡yr)')
-    result22 = round(result2.at['제로에너지', '개선후'],2)
-    f'{result22} kWh/㎡yr'
-  
-    #항목2_에효 1++(비주거용 140 미만)
-    st.text('항목2. 건축물에너지효율등급 1++등급 취득을 위해 필요한 에너지 생산량(개선후 기준, 단위: kWh/㎡yr)')
-    result23 = round(result2.at['에너지효율등급', '개선후'],2)
-    f'{result23} kWh/㎡yr'
-    #결론
-    st.text('최종 필요에너지생산량(단위: kWh/㎡yr)')
-    result24 = round(result2.at['최대값', '개선후'],2)
-    f'{result24} kWh/㎡yr'
+    con010,  con020 = st.columns(2)
+    with con010 : 
+        st.markdown("#### 4. 신재생 필요발전용량 산정")
 
-
-with tab2 :
+        st.text('▶ 개선후 철도역사의 단위면적당 연간 1차에너자 소요량')
+        result11 = round(i_room_elex_drop_1차_연.at['개선후', '단위면적당_연간전기사용량'],2)
+        f' {result11}kWh/㎡yr'
+        #항목1_제로에너지 
+        st.text('▶ (항목1)선택한 ZEB등급 취득을 위해 필요한 단위면적당 연간 1차에너지 생산량')
+        result22 = round(result2.at['제로에너지', '개선후'],2)
+        f'{result22} kWh/㎡yr'
     
-    box1 = st.checkbox('태양광 사양')
-    if box1 : 
-        #설정바 만들기
-        st.caption('--------', unsafe_allow_html=False)
-        st.subheader('■ 태양광 사양 상세입력')
-        
-        con10, con11, con12 = st.columns(3)
-        with con10 : 
-            LENGTH = st.number_input('가로길이 (mm)', 0, 5000, 1000)
-            WIDTH = st.number_input('세로길이 (mm)', 0, 5000, 2000)
-            방위별경사각 = ['South_15', 'South_30', 'South_45', 'South_60', 'South_75', 'South_90', 'East_90', 'West_90', 'North_90']
-            경사각도 = st.selectbox('방위_경사', 방위별경사각)
-        with con11 : 
-            설치용량 = st.number_input('설치용량 [W]', 0, 1000, 400)
-            집광효율 = st.number_input('집광효율 (%)', 0.00, 100.00, 20.06)
-        
-        with con12 : 
-            인버터효율 = st.number_input('인버터효율 (%)', 0.00, 100.00, 96.70)
-            시스템효율 = st.number_input('시스템 효율 (%)', 0.00, 100.00, 7.00)
-    else : 
-        LENGTH = 1000
-        WIDTH = 2000
-        경사각도 = 'South_45'
-        설치용량 = 400
-        집광효율 = 20.06
-        인버터효율 = 96.70
-        시스템효율 = 7.00
-
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 대상지 정보입력')
-    
-    con15, con16, con17 = st.columns([0.5, 0.5,0.5])
-    with con15 :
-        area2 = st.number_input('■ 공조면적(㎡)', 0, 100000, 6000)
-        st.caption("(전체 공조면적을 입력)", unsafe_allow_html=False)
-    with con16 :
-        area4 = st.number_input('■ 지열히트펌프공급면적(㎡)', 1000, 100000, 5000)
-        st.caption("(지열히트펌프를 공급하고자 하는 실의 면적 입력)", unsafe_allow_html=False)
-    with con17 : 
-        지역명 = ['서울','강릉', '광주', '대관령', '대구', '대전', '목포','부산', '서산', '원주', '인천', '전주', '청주', '추풍령', '춘천', '포항', '흑산도']
-        지역 = st.selectbox('지역', 지역명)
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 신재생 설치계획')
+        #항목2_에효 1++(비주거용 140 미만)
+        st.text('▶ (항목2)건축물에너지효율등급 1++등급 취득을 위해 필요한 단위면적당 연간 에너지 생산량(1차에너지)')
+        result23 = round(result2.at['에너지효율등급', '개선후'],2)
+        f'{result23} kWh/㎡yr'
+        #결론
+        st.text('▶ (결론1)단위면적당 연간 필요에너지생산량(1차에너지)')
+        result24 = round(result2.at['최대값', '개선후'],2)
+        f'{result24} kWh/㎡yr'
+        st.text('▶ (결론2)단위면적당 연간 필요에너지생산량(2차에너지)')
+        result25 = round(result24/2.75,2)
+        f'{result25} kWh/㎡yr'
     
     #설정값으로 인한 산출값
     집광면적 = LENGTH*WIDTH/1000000
@@ -830,7 +792,6 @@ with tab2 :
 
     #일일발전량_월간발전량 합치기 
     eeeee = pd.concat([ee, gg],axis=1, join='inner')
-
     #필요 태양광 용량 산정하기
     #모듈 1개당 연간발전량
     B = gg['월간발전량'].sum()
