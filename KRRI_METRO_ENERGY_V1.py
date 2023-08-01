@@ -52,7 +52,7 @@ hide_menu_style = """
 st.set_page_config(layout="wide", page_title="KRRI_metro_Energy")
 st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
-tab0, tab1, tab2, tab3 = st.tabs(['프로그램 개요','에너지성능 분석', '신재생용량산정', '개선효과 분석'])
+tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브º액티브 기술을 적용한 2차 에너지 성능 분석', '에너지 절감을 위한 신재생 에너지 제안'])
 
 #                                                                                                                                                                                                          필요한 데이터 불러오기
 DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
@@ -70,22 +70,49 @@ with tab0 :
 
     with con1 : 
         st.subheader('제로에너지 철도역사 건설 전략수립 의사결정 지원 프로그램')
-        st.markdown("### 1. 개발개요")
-        f'■ (배경) : 2050 탄소중립과 그린뉴딜정책에 발맞춰 2025년까지 지하철역사 ZEB 4등급 이상 달성을 통한 전철도역사 저탄소화 실현'
-        f'■ (목적) : 철도역사의 유형별 표준데이터를 바탕으로, 기존 프로세스 대비 ZEB 4등급 달성을 위한 주체적 사업관리 및 전략수립 지원'
-        f'■ (내용) : 관리자가 입력한 데이터 기반, 기존 철도역사의 제로에너지달성을 위한 신재생설치용량 공사비, CO2 절감량 등 다양한 정보를 제공함으로써, '
-        f'실제 사업 수행 이전 국내 제로에너지 철도역사 건설을 위한 전략수립을 지원하는 툴'
+        st.markdown("#### 1. 개발개요")        
         img1 = Image.open('data/그림1.jpg')
         st.image(img1)
-        st.markdown("### 2. 사용순서 및 방법")
-        img3 = Image.open('data/사용설명.jpg')
-        st.image(img3)
-        st.markdown("#### 3. 프로그램 구성")
+
+        st.markdown("#### 2. 프로그램 구성")
         img2 = Image.open('data/다이어그램.jpg')
         st.image(img2)
 
+        st.markdown("#### ３. 건축물 에너지 효율등급 및 제로에너지 인증")
+        img１５ = Image.open('data/인증설명_1.jpg')
+        st.image(img１５)
+
+        st.markdown("#### ４. 사용자 메뉴얼")
+        img4 = Image.open('data/사용자 메뉴얼_2.jpg')
+        st.image(img4)
+        img5 = Image.open('data/사용자 메뉴얼_3.jpg')
+        st.image(img5)
+        img6 = Image.open('data/사용자 메뉴얼_4.jpg')
+        st.image(img6)
+        img7 = Image.open('data/사용자 메뉴얼_5.jpg')
+        st.image(img7)
+        img8 = Image.open('data/사용자 메뉴얼_6.jpg')
+        st.image(img8)
+        img9 = Image.open('data/사용자 메뉴얼_7.jpg')
+        st.image(img9)
+        img10 = Image.open('data/사용자 메뉴얼_8.jpg')
+        st.image(img10)
+        img11 = Image.open('data/사용자 메뉴얼_9.jpg')
+        st.image(img11)
+        img12 = Image.open('data/사용자 메뉴얼_10.jpg')
+        st.image(img12)
+        img13 = Image.open('data/사용자 메뉴얼_11.jpg')
+        st.image(img13)
+        img14 = Image.open('data/사용자 메뉴얼_12.jpg')
+        st.image(img14)
+
     with empty2 :
         empty()
+
+
+#_________________________________________________________________________________________________________________________________________________
+
+
 
 with tab1 : 
 
@@ -221,19 +248,19 @@ with tab1 :
     # base 모델 streamlit 인풋
     st.caption(' ', unsafe_allow_html=False)
     st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 개선전 정보입력')
+    st.subheader('■ 현 철도역사 건물 정보입력')
     
         
     def user_input_features():
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
         # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
-            Ground = st.select_slider('지하유무_개선전', options=[0, 1])
+            Ground = st.select_slider('지하층유무_개선전', options=[0, 1])
             ACH50 = st.number_input('침기율(ACH/50pa)_개선전', 0, 50, 25)
             Pump_efficiency = st.number_input('펌프효율_개선전', 0.0, 1.0, 0.7)
             
         with con2 : 
-            Basement = st.select_slider('지상유무_개선전', options=[0, 1])
+            Basement = st.select_slider('지상층유무_개선전', options=[0, 1])
             Chiller_COP = st.number_input('냉동기(COP)_개선전', 4, 9, 6)
             heat_recover_effectiveness = st.number_input('전열교환효율_개선전', 0.0, 1.0, 0.7)
        
@@ -243,8 +270,9 @@ with tab1 :
             Lighting_power_density_ = st.number_input('조명밀도(W)_개선전', 3, 20, 7)
       
         with con4 :
-            AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
             Occupied_floor_area = st.number_input('공조면적(㎡)_개선전', 0, 100000, 6000)
+            AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
+            
             
 
             data = {'ACH50': ACH50,
@@ -267,31 +295,32 @@ with tab1 :
      
        
     st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 개선후 정보입력')
+    st.subheader('■ 개선하고자 하는 철도역사 건물 정보입력')
     
 
     def user_input_features2():
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
             # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
-            Ground_2 = st.select_slider('지하유무_개선후', options=[0, 1]) 
-            ACH50_2 = st.number_input('침기율(ACH/50pa)_개선후', 0, 50, 25)
-            Pump_efficiency_2 = st.number_input('펌프효율_개선후', 0.0, 1.0, 0.7)
+            Ground_2 = st.select_slider('지하층유무_개선', options=[0, 1]) 
+            ACH50_2 = st.number_input('침기율(ACH/50pa)_개선', 0, 50, 25)
+            Pump_efficiency_2 = st.number_input('펌프효율_개선', 0.0, 1.0, 0.7)
             
         with con2 : 
-            Basement_2 = st.select_slider('지상유무_개선후', options=[0, 1])
-            Chiller_COP_2 = st.number_input('냉동기(COP)_개선후', 4, 9, 6)
-            heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선후', 0.0, 1.0, 0.7)
+            Basement_2 = st.select_slider('지상층유무_개선', options=[0, 1])
+            Chiller_COP_2 = st.number_input('냉동기(COP)_개선', 4, 9, 6)
+            heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선', 0.0, 1.0, 0.7)
             
         with con3 :  
-            Floor_2 = st.select_slider('지상층수_개선후', options=[1,2,3,4,5])   
-            Fan_total_efficiency_2 = st.number_input('팬효율_개선후', 0.0, 1.0, 0.7)
-            Lighting_power_density__2 = st.number_input('조명밀도(W)_개선후', 3, 20, 7)
+            Floor_2 = st.select_slider('전체층규모_개선', options=[1,2,3,4,5])   
+            Fan_total_efficiency_2 = st.number_input('팬효율_개선', 0.0, 1.0, 0.7)
+            Lighting_power_density__2 = st.number_input('조명밀도(W)_개선', 3, 20, 7)
             
             
         with con4 :   
-            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선후', options=[0, 1])
-            Occupied_floor_area_2 = st.number_input('공조면적(㎡)_개선후', 0, 100000, 6000)
+            Occupied_floor_area_2 = st.number_input('공조면적(㎡)_개선', 0, 100000, 6000)
+            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선', options=[0, 1])
+            
 
             
 
@@ -361,10 +390,10 @@ with tab1 :
     df_concat = df_concat.reset_index(drop=True)
     df_concat = df_concat.round(2)
 
-    df_concat_연간전체 = df_concat.groupby('Alt').agg(년간전기사용량_전체 = ('kW', 'sum'), 단위면적당_년간전기사용량_전체 = ('kW/m2', 'sum'))
+    df_concat_연간전체 = df_concat.groupby('Alt').agg(연간전기사용량_전체 = ('kW', 'sum'), 단위면적당_연간전기사용량_전체 = ('kW/m2', 'sum'))
     df_concat_월간전체 = df_concat.groupby(['Alt','Month']).agg( 월간전기사용량_전체 = ('kW', 'sum'), 단위면적당_월간전기사용량_전체 = ('kW/m2', 'sum'))
-    df_concat_연간원별 = df_concat.groupby('index').agg(년간전기사용량_원별 = ('kW', 'sum'), 단위면적당_년간전기사용량_원별 = ('kW/m2', 'sum'))
-    df_concat_월간원별 = df_concat.groupby(['index','Month']).agg(년간전기사용량_원별 = ('kW', 'sum'), 단위면적당_년간전기사용량_원별 = ('kW/m2', 'sum'))
+    df_concat_연간원별 = df_concat.groupby('index').agg(연간전기사용량_원별 = ('kW', 'sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
+    df_concat_월간원별 = df_concat.groupby(['index','Month']).agg(연간전기사용량_원별 = ('kW', 'sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
 
     df_concat_연간전체 = df_concat_연간전체.reset_index()
     df_concat_월간전체 = df_concat_월간전체.reset_index()
@@ -372,148 +401,300 @@ with tab1 :
     df_concat_월간원별 = df_concat_월간원별.reset_index()
     
     # df_concat_월간원별.plot.bar()
-    input2 = st.checkbox('에너지사용량 비교 그래프')
-    if input2 : 
-        # 예측값을 데이터 프레임으로 만들어본것을 그래프로 그려보기
-        st.caption('--------- ', unsafe_allow_html=False)
-        st.subheader('■ 개선전후 년간 에너지 사용량')
+    
+    # 예측값을 데이터 프레임으로 만들어본것을 그래프로 그려보기
+    st.caption('--------- ', unsafe_allow_html=False)
+    st.subheader('■ 개선전후 연간 2차 에너지 사용량 그래프')
         
-        con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
-        with con1 : 
+    con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
+    with con1 : 
             
-            fig = px.box(
-                df_concat, x='index', y='kW', 
-                title='개선전후 원별비교 (BOXplot)', 
-                hover_data=['kW'], 
-                color='Alt' )
-            fig.update_xaxes(rangeslider_visible=True)
-            fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
+        fig = px.box(
+            df_concat, x='index', y='kW', 
+            title='개선전후 원별비교 (BOXplot)', 
+            hover_data=['kW'], 
+            color='Alt' )
+        fig.update_xaxes(rangeslider_visible=True)
+        fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
         
-        with con2 : 
+    with con2 : 
             
-            fig = px.bar(df_concat, x='index', y='kW', title='개선전후 원별비교', hover_data=['kW'], color='Alt' )
-            fig.update_xaxes(rangeslider_visible=True)
-            fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
+        fig = px.bar(df_concat, x='index', y='kW', title='개선전후 원별비교', hover_data=['kW'], color='Alt' )
+        fig.update_xaxes(rangeslider_visible=True)
+        fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
 
         
+    with con3 :
+        fig = px.bar(
+        df_concat_연간전체, x='Alt', y='연간전기사용량_전체', 
+        title='개선전후 에너지사용량', 
+        hover_data=['연간전기사용량_전체'], 
+        color='Alt' )
+        fig.update_xaxes(rangeslider_visible=True)
+        fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
+
+    with con4 : 
+        fig = px.bar(
+        df_concat_연간전체, x='Alt', y='단위면적당_연간전기사용량_전체', 
+        title='개선전후 단위면적당 에너지사용량', 
+        hover_data=['단위면적당_연간전기사용량_전체'], 
+        color='Alt' )
+        fig.update_xaxes(rangeslider_visible=True)
+        fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
+
+    #연간에너지표 정리 
+    df_concat_월간전체_BASE = df_concat_월간전체.loc[(df_concat_월간전체['Alt'] == '개선전')]
+    df_concat_월간전체_ALT = df_concat_월간전체.loc[(df_concat_월간전체['Alt'] == '개선후')]
+
+
+    box_연간에너지_표 = st.checkbox('개선전후 연간 2차 에너지 사용량 표')
+    if box_연간에너지_표 : 
+        st.caption('--------- ', unsafe_allow_html=False)
+        st.subheader('■ 개선전후 연간 2차 에너지 사용량 표')
+        con3, con4, con5 = st.columns([0.5, 0.5, 0.5])
         with con3 :
-            fig = px.bar(
-            df_concat_연간전체, x='Alt', y='년간전기사용량_전체', 
-            title='개선전후 에너지사용량', 
-            hover_data=['년간전기사용량_전체'], 
-            color='Alt' )
-            fig.update_xaxes(rangeslider_visible=True)
-            fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
+            st.markdown("###### 연간 전체 에너지 사용량")
+            df_concat_연간전체
+        with con4 :
+            st.markdown("###### 월별에너지 사용량_개선전")
+            df_concat_월간전체_BASE
+        with con5 :
+            st.markdown("###### 월별에너지 사용량_개선후")
+            df_concat_월간전체_ALT
 
-        with con4 : 
-            fig = px.bar(
-            df_concat_연간전체, x='Alt', y='단위면적당_년간전기사용량_전체', 
-            title='개선전후 단위면적당 에너지사용량', 
-            hover_data=['단위면적당_년간전기사용량_전체'], 
-            color='Alt' )
-            fig.update_xaxes(rangeslider_visible=True)
-            fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
-        st.caption('--------- ', unsafe_allow_html=False)
-        st.subheader('■ 개선전후 월별 에너지 사용량')
+
+    st.caption('--------- ', unsafe_allow_html=False)
+    st.subheader('■ 개선전후 월별 2차 에너지 사용량 그래프')
         
 
-        con5, con6, con7 = st.columns([0.5, 0.5, 0.5])
+    con5, con6, con7 = st.columns([0.5, 0.5, 0.5])
 
-        with con5 : 
+    with con5 : 
         # 예측값을 데이터 프레임으로 만들어본것을 그래프로 그려보기
             
-            fig = px.bar(df_concat, x='Month', y='kW', title='개선전후 월별비교', hover_data=['index'],color='Alt' )
-            fig.update_xaxes(rangeslider_visible=True)
-            fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
+        fig = px.bar(df_concat, x='Month', y='kW', title='개선전후 월별비교', hover_data=['index'],color='Alt' )
+        fig.update_xaxes(rangeslider_visible=True)
+        fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
 
-        with con6 : 
-            fig = px.bar(df_result, x='Month', y='kW', title='개선전 월간 원별결과', hover_data=['kW'], color='index' )
-            fig.update_xaxes(rangeslider_visible=True)
-            # fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
+    with con6 : 
+        fig = px.bar(df_result, x='Month', y='kW', title='개선전 월간 원별결과', hover_data=['kW'], color='index' )
+        fig.update_xaxes(rangeslider_visible=True)
+        # fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
 
+    with con7 :
+        fig = px.bar(df_result2, x='Month', y='kW', title='개선후 월간 원별결과', hover_data=['kW'], color='index' )
+        fig.update_xaxes(rangeslider_visible=True)
+        # fig.update_layout(barmode='group') #alt별 구분
+        # fig
+        st.plotly_chart(fig, use_container_width=True)
+
+    df_concat_alt_연간원별 = df_concat.groupby(['Alt', 'index']).agg(연간전기사용량_원별 = ('kW','sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
+    df_concat_alt_연간원별 = df_concat_alt_연간원별.reset_index()
+    df_concat_alt_연간원별_개선전 = df_concat_alt_연간원별.loc[(df_concat_alt_연간원별['Alt'] == '개선전')]
+    df_concat_alt_연간원별_개선후 = df_concat_alt_연간원별.loc[(df_concat_alt_연간원별['Alt'] == '개선후')]
+
+    df_concat_alt_월간원별 = df_concat.groupby(['Alt', 'index', 'Month']).agg(월간전기사용량_원별 = ('kW','sum'), 단위면적당_월간전기사용량_원별 = ('kW/m2', 'sum'))
+    df_concat_alt_월간원별 = df_concat_alt_월간원별.reset_index()
+    
+    df_concat_alt_월간원별_개선전 = df_concat_alt_월간원별.loc[(df_concat_alt_월간원별['Alt'] == '개선전')]
+    df_concat_alt_월간원별_개선후 = df_concat_alt_월간원별.loc[(df_concat_alt_월간원별['Alt'] == '개선후')]
+
+    df_concat_alt_월간원별_개선전_Cooling = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'Cooling')]
+    df_concat_alt_월간원별_개선후_Cooling = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'Cooling')]
+
+    df_concat_alt_월간원별_개선전_DHW = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'DHW')]
+    df_concat_alt_월간원별_개선후_DHW = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'DHW')]
+
+    df_concat_alt_월간원별_개선전_Fans = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'Fans')]
+    df_concat_alt_월간원별_개선후_Fans = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'Fans')]
+
+    df_concat_alt_월간원별_개선전_Heating = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'Heating')]
+    df_concat_alt_월간원별_개선후_Heating = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'Heating')]
+
+    df_concat_alt_월간원별_개선전_Lighting = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'Lighting')]
+    df_concat_alt_월간원별_개선후_Lighting = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'Lighting')]
+
+    df_concat_alt_월간원별_개선전_Pumps = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'Pumps')]
+    df_concat_alt_월간원별_개선후_Pumps = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'Pumps')]
+
+    df_concat_alt_월간원별_개선전_Room_Elec = df_concat_alt_월간원별_개선전.loc[(df_concat_alt_월간원별_개선전['index'] == 'Room_Elec')]
+    df_concat_alt_월간원별_개선후_Room_Elec = df_concat_alt_월간원별_개선후.loc[(df_concat_alt_월간원별_개선후['index'] == 'Room_Elec')]
+
+    box_월간에너지_표 = st.checkbox('개선전후 월별 2차 에너지 사용량 표')
+    if box_월간에너지_표 : 
+        st.caption('--------- ', unsafe_allow_html=False)
+        st.subheader('■ 개선전후 월별 2차 에너지 사용량 표')
+        ## 표 원별 정리
+        #전체 에너지 사용량_에너지원
+        
+        con6, con7, con8, con9 = st.columns([0.5, 0.5, 0.5, 0.5])
+        st.caption('                     ', unsafe_allow_html=False)
+        st.caption('--------- ', unsafe_allow_html=False)
+        st.caption('                     ', unsafe_allow_html=False)
+        con10, con11, con12, con13 = st.columns([0.5, 0.5, 0.5, 0.5])
+        with con6 :
+            st.markdown("###### 연간 에너지 사용량_개선전")
+            df_concat_alt_연간원별_개선전
+            st.markdown("###### 연간 에너지 사용량_개선후")
+            df_concat_alt_연간원별_개선후
+        
         with con7 :
-            fig = px.bar(df_result2, x='Month', y='kW', title='개선후 월간 원별결과', hover_data=['kW'], color='index' )
-            fig.update_xaxes(rangeslider_visible=True)
-            # fig.update_layout(barmode='group') #alt별 구분
-            # fig
-            st.plotly_chart(fig, use_container_width=True)
+            st.markdown("###### 월간 냉방 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_Cooling 
+            st.markdown("###### 월간 냉방 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_Cooling
+        
+        with con8 :
+            st.markdown("###### 월간 난방 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_Heating 
+            st.markdown("###### 월간 난방 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_Heating
+        
+        with con9 :
+            st.markdown("###### 월간 급탕 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_DHW 
+            st.markdown("###### 월간 급탕 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_DHW
+        
+        with con10 :
+            st.markdown("###### 월간 조명 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_Lighting 
+            st.markdown("###### 월간 조명 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_Lighting
+        
+        with con11 :
+            st.markdown("###### 월간 환기 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_Fans 
+            st.markdown("###### 월간 환기 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_Fans
 
+        with con12 :
+            st.markdown("###### 월간 펌프 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_Pumps 
+            st.markdown("###### 월간 펌프 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_Pumps
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        with con13 :
+            st.markdown("###### 월간 대기전력 에너지 사용량_개선전")
+            df_concat_alt_월간원별_개선전_Room_Elec
+            st.markdown("###### 월간 대기전력 에너지 사용량_개선후")
+            df_concat_alt_월간원별_개선후_Room_Elec
+    
 #_________________________________________________________________________________________________________________________________________________
-
-
-
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 필요 에너지 생산량')
-    st.caption('(항목1,2 중 단위면적당 필요한 에너지 생산량이 큰 값을 적용)', unsafe_allow_html=False)
     
-    제로에너지등급 = st.number_input('제로에너지목표등급 설정', 1, 4, 4)
     
+with tab2 :
+
+    st.subheader('■ 에너지 성능 향상을 위한 신재생에너지 제안 ')
+    st.markdown("###### - 철도역사 에너지 성능분석 데이터(2차에너지)를 기반으로 건축물 에너지 효율등급 1++등급 및 설정한 제로에너지 등급에 도달할 수 있는 신재생 설치 대안을 제안하고자 한다.")
+    st.markdown("#### 1. 용어설명")
+    img3 = Image.open('data/3page_calculation_flow.jpg')
+    st.image(img3)
+
     #계산을 위해 필요한 정보 
     DF4 = df_concat #에너지사용량 예측값 불러오기 
-    A = DF6[제로에너지등급] #제로에너지 취득을 위한 퍼센테이지 정보
 
     # base 소요량 합계(Room_Elec제외 합계값 X 보정계수 곱) = hh
     h = DF4.loc[(DF4['Alt'] == '개선전')]
     ss= h[h['index'].str.contains('Room_Elec')].index
     h.drop(ss, inplace=True)
     hh=h['kW/m2'].sum()*2.75
-
-
+    
     # 개선후 소요량 합계(Room_Elec제외 합계값 X 보정계수 곱) = ii
     i = DF4.loc[(DF4['Alt'] == '개선후')]
     spac= i[i['index'].str.contains('Room_Elec')].index
     i.drop(spac, inplace=True)
     ii=i['kW/m2'].sum()*2.75
 
+    #2차에너지 
+    건축물_2차_소요량 = df_concat.groupby(['Alt','Month']).agg( 월간전기사용량 = ('kW', 'sum'), 단위면적당_월간전기사용량 = ('kW/m2', 'sum'))
+    건축물_2차_소요량_개선후 = 건축물_2차_소요량.drop(labels='개선전',axis=0)
+    #2차에너지 room elec 제외한 값
+    i_room_elex_drop_2차 = i.groupby(['Alt','Month']).agg( 월간전기사용량 = ('kW', 'sum'), 단위면적당_월간전기사용량 = ('kW/m2', 'sum'))
+    #1차에너지
+    i_room_elex_drop_1차 = i_room_elex_drop_2차*2.75
+    #연간 1차에너지
+    i_room_elex_drop_1차_연 = i_room_elex_drop_1차.groupby(['Alt']).agg( 연간전기사용량 = ('월간전기사용량', 'sum'), 단위면적당_연간전기사용량 = ('단위면적당_월간전기사용량', 'sum'))
+    #홈페이지 나타내기
+    st.caption('                     ', unsafe_allow_html=False)
+    st.caption('--------- ', unsafe_allow_html=False)
+    st.markdown("#### 2. 철도역사의 5대에너지(1차 에너지) 산정 과정 ")
+    con001,  con003,  con005,  con007 = st.columns(4)
+    with con001 : 
+        st.markdown("###### ①에너지 사용량(2차에너지)")
+        건축물_2차_소요량_개선후
+
+    with con003 : 
+        st.markdown("###### ②건축물 5대 에너지(2차에너지)")
+        i_room_elex_drop_2차
+
+    with con005 : 
+        st.markdown("###### ③건축물 5대 에너지(1차에너지)")
+        i_room_elex_drop_1차
+
+    with con007 : 
+        st.markdown("###### ④건축물 5대 에너지(연간 1차에너지)")
+        i_room_elex_drop_1차_연
+        
+    st.caption('                     ', unsafe_allow_html=False)
+    st.caption('--------- ', unsafe_allow_html=False)
+    st.markdown("#### 3. 신재생 산정을 위한 기본정보 입력")
+    con10, con11, con12, con13 = st.columns([0.5, 0.2, 0.5, 0.2])
+
+    with con10 : 
+        st.markdown("###### ①건축물 기본정보")
+        지역명 = ['서울','강릉', '광주', '대관령', '대구', '대전', '목포','부산', '서산', '원주', '인천', '전주', '청주', '추풍령', '춘천', '포항', '흑산도']
+        지역 = st.selectbox('＊지역', 지역명)
+        area2 = st.number_input('＊공조면적(㎡)', 0, 100000, 6000)
+        st.caption("(전체 공조면적을 입력)", unsafe_allow_html=False)
+        제로에너지등급 = st.number_input('＊제로에너지목표등급 설정', 1, 5, 4)
+        st.caption("(목표하고자 하는 제로에너지 등급 입력)", unsafe_allow_html=False)
+        st.caption('                     ', unsafe_allow_html=False)
+        st.caption('--------- ', unsafe_allow_html=False)
+        st.markdown("###### ②지열에너지 기본정보")
+        area4 = st.number_input('＊지열히트펌프공급면적(㎡)', 1000, 100000, 5000)
+        st.caption("(지열히트펌프를 공급하고자 하는 실의 면적 입력)", unsafe_allow_html=False)
+    
+    with con11 : 
+        empty()    
+       
+    with con12 : 
+        st.markdown("###### ③태양광 모듈 1개에 대한 기본정보")
+        LENGTH = st.number_input('＊가로길이 (mm)', 0, 5000, 1000)
+        WIDTH = st.number_input('＊세로길이 (mm)', 0, 5000, 2000)
+        방위별경사각 = ['South_15', 'South_30', 'South_45', 'South_60', 'South_75', 'South_90', 'East_90', 'West_90', 'North_90']
+        경사각도 = st.selectbox('＊방위_경사', 방위별경사각)
+        설치용량 = st.number_input('＊설비용량 [W]', 0, 1000, 400)
+        집광효율 = st.number_input('＊집광효율 (%)', 0.00, 100.00, 21.6)
+        PER= st.number_input('＊Performance Ratio (%)', 0.00, 100.00, 75.00)
+        
+    
+    with con13 : 
+        empty()
+
+    st.caption('                     ', unsafe_allow_html=False)
+    st.caption('--------- ', unsafe_allow_html=False)
+
+    A = DF6[제로에너지등급] #제로에너지 취득을 위한 퍼센테이지 정보
+
     #기준1_에효 1++(비주거용 140 미만)
-    x = {'base':[hh-141], '개선후':[ii-141]}
+    x = {'개선전':[hh-139], '개선후':[ii-139]}
     xx = pd.DataFrame(x, index=['에너지효율등급'])
-    ##st.dataframe(xx)
 
     #기준2_제로에너지 
-    y = {'base':[A[0]/100*hh], '개선후':[A[0]/100*ii]}
+    y = {'개선전':[A[0]/100*hh], '개선후':[A[0]/100*ii]}
     yy = pd.DataFrame(y, index=['제로에너지'])
 
     #base와 개선후 표 합치기 = result
@@ -531,66 +712,29 @@ with tab1 :
     result2 = pd.concat([result,mmm])
     ## result2
 
-    #항목1_제로에너지 
-    st.text('항목1. 선택한 ZEB등급 취득을 위해 필요한 에너지 생산량(개선후 기준, 단위: kWh/㎡yr)')
-    result22 = round(result2.at['제로에너지', '개선후'],2)
-    f'{result22} kWh/㎡yr'
-  
-    #항목2_에효 1++(비주거용 140 미만)
-    st.text('항목2. 건축물에너지효율등급 1++등급 취득을 위해 필요한 에너지 생산량(개선후 기준, 단위: kWh/㎡yr)')
-    result23 = round(result2.at['에너지효율등급', '개선후'],2)
-    f'{result23} kWh/㎡yr'
-    #결론
-    st.text('최종 필요에너지생산량(단위: kWh/㎡yr)')
-    result24 = round(result2.at['최대값', '개선후'],2)
-    f'{result24} kWh/㎡yr'
+    con010,  con020 = st.columns(2)
+    with con010 : 
+        st.markdown("#### 4. 신재생 필요발전용량 산정")
 
-
-with tab2 :
+        st.text('▶ 개선후 철도역사의 단위면적당 연간 1차에너자 소요량')
+        result11 = round(i_room_elex_drop_1차_연.at['개선후', '단위면적당_연간전기사용량'],2)
+        f' {result11}kWh/㎡yr'
+        #항목1_제로에너지 
+        st.text('▶ (항목1)선택한 ZEB등급 취득을 위해 필요한 단위면적당 연간 1차에너지 생산량')
+        result22 = round(result2.at['제로에너지', '개선후'],2)
+        f'{result22} kWh/㎡yr'
     
-    box1 = st.checkbox('태양광 사양')
-    if box1 : 
-        #설정바 만들기
-        st.caption('--------', unsafe_allow_html=False)
-        st.subheader('■ 태양광 사양 상세입력')
-        
-        con10, con11, con12 = st.columns(3)
-        with con10 : 
-            LENGTH = st.number_input('가로길이 (mm)', 0, 5000, 1000)
-            WIDTH = st.number_input('세로길이 (mm)', 0, 5000, 2000)
-            방위별경사각 = ['South_15', 'South_30', 'South_45', 'South_60', 'South_75', 'South_90', 'East_90', 'West_90', 'North_90']
-            경사각도 = st.selectbox('방위_경사', 방위별경사각)
-        with con11 : 
-            설치용량 = st.number_input('설치용량 [W]', 0, 1000, 400)
-            집광효율 = st.number_input('집광효율 (%)', 0.00, 100.00, 20.06)
-        
-        with con12 : 
-            인버터효율 = st.number_input('인버터효율 (%)', 0.00, 100.00, 96.70)
-            시스템효율 = st.number_input('시스템 효율 (%)', 0.00, 100.00, 7.00)
-    else : 
-        LENGTH = 1000
-        WIDTH = 2000
-        경사각도 = 'South_45'
-        설치용량 = 400
-        집광효율 = 20.06
-        인버터효율 = 96.70
-        시스템효율 = 7.00
-
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 대상지 정보입력')
-    
-    con15, con16, con17 = st.columns([0.5, 0.5,0.5])
-    with con15 :
-        area2 = st.number_input('■ 공조면적(㎡)', 0, 100000, 6000)
-        st.caption("(전체 공조면적을 입력)", unsafe_allow_html=False)
-    with con16 :
-        area4 = st.number_input('■ 지열히트펌프공급면적(㎡)', 1000, 100000, 5000)
-        st.caption("(지열히트펌프를 공급하고자 하는 실의 면적 입력)", unsafe_allow_html=False)
-    with con17 : 
-        지역명 = ['서울','강릉', '광주', '대관령', '대구', '대전', '목포','부산', '서산', '원주', '인천', '전주', '청주', '추풍령', '춘천', '포항', '흑산도']
-        지역 = st.selectbox('지역', 지역명)
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 신재생 설치계획')
+        #항목2_에효 1++(비주거용 140 미만)
+        st.text('▶ (항목2)건축물에너지효율등급 1++등급 취득을 위해 필요한 단위면적당 연간 에너지 생산량(1차에너지)')
+        result23 = round(result2.at['에너지효율등급', '개선후'],2)
+        f'{result23} kWh/㎡yr'
+        #결론
+        st.text('▶ (결론1)단위면적당 연간 필요에너지생산량(1차에너지)')
+        result24 = round(result2.at['최대값', '개선후'],2)
+        f'{result24} kWh/㎡yr'
+        st.text('▶ (결론2)단위면적당 연간 필요에너지생산량(2차에너지)')
+        result25 = round(result24/2.75,2)
+        f'{result25} kWh/㎡yr'
     
     #설정값으로 인한 산출값
     집광면적 = LENGTH*WIDTH/1000000
@@ -624,20 +768,21 @@ with tab2 :
     ## st.dataframe(dd)
 
     #일일발전량 = ee
-    e = [d[0] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[1] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[2] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[3] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[4] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[5] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[6] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[7] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[8] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[9] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[10] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000, 
-    d[11] * 집광효율 * 집광면적 * 인버터효율 * 시스템효율/1000000]
+    e = [d[0] * 집광효율 * 집광면적 * PER/1000000, 
+    d[1] * 집광효율 * 집광면적 * PER/1000000, 
+    d[2] * 집광효율 * 집광면적 * PER/1000000, 
+    d[3] * 집광효율 * 집광면적 * PER/1000000, 
+    d[4] * 집광효율 * 집광면적 * PER/1000000, 
+    d[5] * 집광효율 * 집광면적 * PER/1000000, 
+    d[6] * 집광효율 * 집광면적 * PER/1000000, 
+    d[7] * 집광효율 * 집광면적 * PER/1000000, 
+    d[8] * 집광효율 * 집광면적 * PER/1000000, 
+    d[9] * 집광효율 * 집광면적 * PER/1000000, 
+    d[10] * 집광효율 * 집광면적 * PER/1000000, 
+    d[11] * 집광효율 * 집광면적 * PER/1000000]
     ee = pd.DataFrame(e, index=['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['일일발전량'])
     ## st.dataframe(ee)
+    
 
 
     #월간발전량 = g
@@ -647,16 +792,15 @@ with tab2 :
 
     #일일발전량_월간발전량 합치기 
     eeeee = pd.concat([ee, gg],axis=1, join='inner')
-
     #필요 태양광 용량 산정하기
-    #모듈 1개당 년간발전량
+    #모듈 1개당 연간발전량
     B = gg['월간발전량'].sum()
 
     #모듈 용량 KW로 변환
     D = 설치용량/1000 
 
     #alt1 필요 태양광 용량 및 면적
-    A_alt1 = round(result2.at['최대값', '개선후']*area2,0) # 전체 건물의 필요한 에너지 생산량
+    A_alt1 = round(result25*area2,0) # 전체 건물의 필요한 에너지 생산량
     C_alt1 = round(A_alt1/B,0) #필요한 태양광 모듈의 개수
     E_alt1 = round(C_alt1*D,0) #총 필요한 태양광 용량 KW   
     F_alt1 = round(C_alt1*집광면적,0)#총 필요한 집광면적
@@ -669,9 +813,8 @@ with tab2 :
     ## DF7 = pd.DataFrame(soladata, index=['필요에너지생산량', '필요태양광모듈개수', '필요집광면적', '총태양광용량'])
     ##st.dataframe(DF7)
     
-    #지열면적
-    #st.markdown("##### ▣ 지열")
-    y_alt2_kw = round(area4/14*3024/860,2)
+    #지열
+    y_alt2_kw = round(area4/0.056051-1609.64)
     
     
     # 태양광으로 대체해야할 에너지생산량 계산(전체 건물의 필요한 에너지 생산량-지열히트펌프설치면적)_alt
@@ -679,7 +822,7 @@ with tab2 :
 
     # 계산
     #필요한 태양광 에너지생산량
-    sola_A_alt = round(A_alt1-(area4/0.056051-1609.64),0)
+    sola_A_alt = A_alt1-y_alt2_kw
     #필요한 태양광 모듈의 개수
     sola_C_alt = round(sola_A_alt/B,0)  
     #총 필요한 태양광 용량 KW
@@ -688,60 +831,151 @@ with tab2 :
     sola_F_alt = round(sola_C_alt*집광면적,0)            
 
     #홈페이지 나타내기
-    idx1 = [['개선후(태양광)', '개선후(태양광+지열)']]
-    columns_list = [('태양광 용량(kW)'), ('태양광 집광면적(㎡)'), ('태양광 모듈개수(EA)'), ('지열 용량(kW)')]
-    data1 = np.array([[E_alt1, F_alt1, C_alt1, 0], [sola_E_alt, sola_F_alt, sola_C_alt, y_alt2_kw]])
-    col1 = np.array([['태양광', '태양광', '태양광','지열'],['용량(kW)', '집광면적(㎡)', '모듈개수(EA)', '용량(kW)']])
-    신재생설치계획 = pd.DataFrame(data1, index = idx1, columns = columns_list)
-    st.dataframe(신재생설치계획.style.format("{:,.0f}"))
-
-with tab3 : 
-   
-    con00, con01 = st.columns([0.5, 0.5])
-    with con00 : 
-        st.subheader('개선효과분석')
-        st.caption('--------', unsafe_allow_html=False) 
-        st.markdown("#### 1. 건축물 개요")
-        st.text_input('건축물명')
-        st.text_input('대지위치')
-        st.text_input('용   도')
-        st.text_input('건축면적')
-        st.text_input('연 면 적')
-        st.text_input('층   수')
-        st.text_input('높   이')
-    with con01 :
+    with con020 :
+        st.markdown("#### 5. 태양광 및  지열 필요 용량 산정")
+        idx1 = [['개선후(태양광)', '개선후(태양광+지열)']]
+        columns_list = [('태양광 용량(kW)'), ('태양광 집광면적(㎡)'), ('태양광 모듈개수(EA)'), ('지열 용량(kW)')]
+        data1 = np.array([[E_alt1, F_alt1, C_alt1, 0], [sola_E_alt, sola_F_alt, sola_C_alt, y_alt2_kw]])
+        col1 = np.array([['태양광', '태양광', '태양광','지열'],['용량(kW)', '집광면적(㎡)', '모듈개수(EA)', '용량(kW)']])
+        신재생설치계획 = pd.DataFrame(data1, index = idx1, columns = columns_list)
+        st.dataframe(신재생설치계획.style.format("{:,.0f}"))
         
-        def load_image(img):
-            im = Image.open(img)
-            size = (1500, 1200)
-            im.thumbnail(size)
-            image = np.array(im)
-            return image
-                
-        uploadFile = st.file_uploader(label="조감도를 업로드 하세요", type=['jpg', 'png'])
 
-            # Checking the Format of the page
-        if uploadFile is not None:
-            img = load_image(uploadFile)
-            st.image(img)
+
+    
 
     st.caption('--------', unsafe_allow_html=False)  
-    st.markdown("#### 2. 목표등급")
-    st.caption('         ', unsafe_allow_html=False)
-    st.markdown("##### (1) 목표달성을 위한 신재생 설치용량")
+    st.markdown("#### 6. 신재생 설치로 인한 기대 개선 효과 분석 ")
+
+    #필요정보 만들기
+    #제안1 태양광 전제월간발전량(1차) = g*모듈개수
+    ggg = pd.DataFrame(g, columns=['월간발전량'])
+    g_all = ggg*C_alt1*2.75
+    # g_all
+
+    #제안2 전제월간발전량(1차)
+    ggg = pd.DataFrame(g, columns=['태양광_월간발전량'])
+    g_all2 = ggg*sola_C_alt*2.75
+    g_all2['지열_월간발전량'] = y_alt2_kw / 12*2.75
+    g_all2['월간_발전량 합계'] = g_all2['태양광_월간발전량'] + g_all2['지열_월간발전량']
+    ## g_all2
+    #개선전 월별 에너지 소요령값 출력
+    #h
+    BASE_연간전체 = h.groupby('Alt').agg(연간전기사용량_전체 = ('kW', 'sum'), 단위면적당_연간전기사용량_전체 = ('kW/m2', 'sum'))
+    BASE_월간전체 = h.groupby(['Alt','Month']).agg( 월간전기사용량_전체 = ('kW', 'sum'), 단위면적당_월간전기사용량_전체 = ('kW/m2', 'sum'))
+    BASE_연간원별 = h.groupby('index').agg(연간전기사용량_원별 = ('kW', 'sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
+    BASE_월간원별 = h.groupby(['index','Month']).agg(연간전기사용량_원별 = ('kW', 'sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
+
+    BASE_연간전체 = BASE_연간전체.reset_index()
+    BASE_월간전체 = BASE_월간전체.reset_index()
+    BASE_월간전체.drop(['단위면적당_월간전기사용량_전체'], axis=1, inplace=True)
+    BASE_월간전체['개선전_월간소요량']= round(BASE_월간전체['월간전기사용량_전체'] * 2.75,2)
+    BASE_월간전체['개선전_CO2발생량'] = round(BASE_월간전체['개선전_월간소요량']*4.781,2)
+    BASE_월간전체['개선전_필요소나무'] = round(BASE_월간전체['개선전_월간소요량']*0.1158,2)
+    # BASE_월간전체
+
+    #alt 월별 에너지 소요령값 출력
+    #i
+    ALT_연간전체 = i.groupby('Alt').agg(연간전기사용량_전체 = ('kW', 'sum'), 단위면적당_연간전기사용량_전체 = ('kW/m2', 'sum'))
+    ALT_월간전체 = i.groupby(['Alt','Month']).agg( 월간전기사용량_전체 = ('kW', 'sum'), 단위면적당_월간전기사용량_전체 = ('kW/m2', 'sum'))
+    ALT_연간원별 = i.groupby('index').agg(연간전기사용량_원별 = ('kW', 'sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
+    ALT_월간원별 = i.groupby(['index','Month']).agg(연간전기사용량_원별 = ('kW', 'sum'), 단위면적당_연간전기사용량_원별 = ('kW/m2', 'sum'))
+
+    ALT_연간전체 = ALT_연간전체.reset_index()
+    ALT_월간전체 = ALT_월간전체.reset_index()
+    ALT_월간전체.drop(['단위면적당_월간전기사용량_전체'], axis=1, inplace=True)
+    ALT_월간전체['개선후_월간소요량']= round(ALT_월간전체['월간전기사용량_전체'] * 2.75,2)
+    ALT_월간전체['개선후(태양광)_신재생발전량'] = g_all['월간발전량']
+    ALT_월간전체['개선후(태양광+지열)_신재생발전량'] = g_all2['월간_발전량 합계']
+    ALT_월간전체['개선후(태양광)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량']-ALT_월간전체['개선후(태양광)_신재생발전량'],2)
+    ALT_월간전체['개선후(태양광+지열)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량']-g_all2['월간_발전량 합계'],2)
+    ALT_월간전체['개선후(태양광)_CO2발생량'] = round(ALT_월간전체['개선후(태양광)_월간소요량']*4.781,2)
+    ALT_월간전체['개선후(태양광+지열)_CO2발생량'] = round(ALT_월간전체['개선후(태양광+지열)_월간소요량']*4.781,2)
+    ALT_월간전체['개선후(태양광)_필요소나무'] = round(ALT_월간전체['개선후(태양광)_CO2발생량']*0.1158,2)
+    ALT_월간전체['개선후(태양광+지열)_필요소나무'] = round(ALT_월간전체['개선후(태양광+지열)_CO2발생량']*0.1158,2)
+    # ALT_월간전체
     
-    f'① 목표등급 : 건축물 에너지 효율등급 1++등급, 제로에너지인증 {제로에너지등급}등급'
-    AA = result2.at['최대값', '개선후']
-    f'단위면적당 필요에너지 : {AA} kWh/㎡yr' 
-    st.caption('         ', unsafe_allow_html=False)
+    # co2발상량 표합침
+    co2발생량 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
+    co2발생량['개선전']=BASE_월간전체['개선전_CO2발생량']
+    co2발생량['개선후(태양광)']=ALT_월간전체['개선후(태양광)_CO2발생량']
+    co2발생량['개선후(태양광+지열)']=ALT_월간전체['개선후(태양광+지열)_CO2발생량']
     
-    f'② 제안1. 태양광만 설치했을경우 목표달성을 위한 필요 태양광 용량(단위: kW)'
-    f'태양광 : {E_alt1} kW'
-    st.caption('         ', unsafe_allow_html=False)
+    # co2발생량
+    co2발생량1 = co2발생량.set_index(keys='month', drop=True, append=False, inplace=False, verify_integrity=False)
     
-    f'③ 제안2. 태양광과 지열을 병행하여 설치했을 경우(단위: kW)'
-    f'태양광 : {sola_E_alt} kW'
-    f'지열 : {y_alt2_kw} kW'
+    # 소나무 표합침 
+    소나무 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
+    소나무['개선전']=BASE_월간전체['개선전_필요소나무']
+    소나무['개선후(태양광)']=ALT_월간전체['개선후(태양광)_필요소나무']
+    소나무['개선후(태양광+지열)']=ALT_월간전체['개선후(태양광+지열)_필요소나무']
+    
+    소나무1 = 소나무.set_index(keys='month', drop=True, append=False, inplace=False, verify_integrity=False)
+    # 소나무1
+
+    #월별에너지소요량 비교표 
+    월간소요량비교 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
+    월간소요량비교['개선전'] = BASE_월간전체['개선전_월간소요량']
+    월간소요량비교['개선후(태양광)'] = ALT_월간전체['개선후(태양광)_월간소요량']
+    월간소요량비교['개선후(태양광+지열)'] = ALT_월간전체['개선후(태양광+지열)_월간소요량']
+    
+    #연간소요량 정보 
+    BASE_연간소요량_ = round(BASE_월간전체['개선전_월간소요량'].sum(),2)
+    ALT_월간전체_ = ALT_월간전체['개선후_월간소요량'].sum()
+    g_all_ = g_all['월간발전량'].sum()
+    g_all2_ = g_all2['월간_발전량 합계'].sum()
+    ALT_연간소요량_제안1 = round(ALT_월간전체_ - g_all_,2)
+    ALT_연간소요량_제안2 = round(ALT_월간전체_ - g_all2_,2)
+    row = ['연간에너지소요량']
+    col = ['개선전', '개선후(태양광)', '개선후(태양광+지열)']
+    data_ = [[BASE_연간소요량_, ALT_연간소요량_제안1, ALT_연간소요량_제안2]]
+    연간발전량비교 =  pd.DataFrame(data = data_, index = row, columns = col)
+    ## st.dataframe(연간발전량비교)
+
+# 합계값 정의
+    개선전_CO2발생량 = round(co2발생량['개선전'].sum(),2)
+    개선후_태양광_CO2발생량 = round(co2발생량['개선후(태양광)'].sum(),2)
+    개선후_태양광_지열_CO2발생량 = round(co2발생량['개선후(태양광+지열)'].sum(),2)
+
+    개선전_필요소나무 = round(소나무['개선전'].sum(),2)
+    개선후_태양광_필요소나무 = round(소나무['개선후(태양광)'].sum(),2)
+    개선후_태양광_지열_필요소나무 = round(소나무['개선후(태양광+지열)'].sum(),2)
+
+    # f'■ 개선전  : 연간에너지소요량 {BASE_연간소요량_}kWh/yr, CO2배출량 {개선전_CO2발생량}kg'
+    # f'■ 개선후(태양광) 기대효과 : 연간에너지소요량 {ALT_연간소요량_제안1}kWh/yr, CO2배출량 {개선후_태양광_CO2발생량}kg으로 {개선후_태양광_CO2발생량/개선전_CO2발생량*100}% 절감, {개선전_필요소나무-개선후_태양광_필요소나무:0.0f}개의 소나무를 식재하는 효과'
+    # f'■ 개선후(태양광+지열) 기대효과 : 연간에너지소요량 {ALT_연간소요량_제안2}kWh/yr, CO2배출량 {개선후_태양광_지열_CO2발생량}kg으로 {개선후_태양광_지열_CO2발생량/개선전_CO2발생량*100}% 절감, {개선전_필요소나무-개선후_태양광_지열_필요소나무:0.0f}개의 소나무를 식재하는 효과'
+
+    ## st.markdown("##### ②. CO2 배출량 분석")
+    # 표만들기
+    fig1 = px.bar(co2발생량1, y=['개선전','개선후(태양광)','개선후(태양광+지열)'], title='CO2 발생량 그래프', barmode='group')
+    ## fig1
+
+    개선후_제안1_소요량절감률 = round((1-(ALT_연간소요량_제안1/BASE_연간소요량_))*100,2)
+    개선후_제안2_소요량절감률 = round((1-(ALT_연간소요량_제안2/BASE_연간소요량_))*100,2)
+
+    개선후_제안1_CO2절감률 = round((1-(개선후_태양광_CO2발생량/개선전_CO2발생량))*100,2)
+    개선후_제안2_CO2절감률 = round((1-(개선후_태양광_지열_CO2발생량/개선전_CO2발생량))*100,2)
+
+    개선후_제안1_소나무식재효과 =round(개선후_태양광_필요소나무-개선전_필요소나무,2)
+    개선후_제안2_소나무식재효과 =round(개선후_태양광_지열_필요소나무-개선전_필요소나무,2)
+
+
+
+
+    #홈페이지 나타내기 
+    con30, con31 = st.columns(2)
+
+    # 표만들기
+    with con30 :
+        st.markdown("##### (1) 연간에너지 소요량 비교")
+        fig3 = px.bar(연간발전량비교, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="연간 에너지 소요량 비교", barmode='group')
+        fig3
+        
+    with con31 :
+        월간소요량비교1=월간소요량비교.set_index(['month'])
+        st.markdown("##### (2) 월별에너지 소요량 비교")
+        fig2 = px.bar(월간소요량비교1, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="월간 에너지 소요량 비교", barmode='group')
+        fig2
     
     # 공사비 
     PR = DF7['가격']
@@ -752,13 +986,14 @@ with tab3 :
     Pump_efficiency가격 = format(PR[4]*area2,',d')
     heat_recover_effectiveness가격 = format(PR[5]*area2,',d')
     Lighting_power_density가격 = format(PR[6]*area2,',d')
-    지열가격2 = format(int(PR[7]*y_alt2_kw),',d')
     지열가격1 = 0
+    지열가격2 = format(int(PR[7]*y_alt2_kw),',d')
     태양광1 = format(int((PR[8]*E_alt1)+(PR[9]*F_alt1)),',d')
     태양광2 = format(int((PR[8]*sola_E_alt)+(PR[9]*sola_F_alt)),',d')
 
     st.caption('         ', unsafe_allow_html=False)
-    st.markdown("##### (2) 기술요소별 예상공사비")
+    st.markdown("#### 7. 기술 요소별 예상 공사비 산정 ")
+    st.caption('(각 항목 체크시 예상공사비 산정됨)', unsafe_allow_html=False)
     st.caption('         ', unsafe_allow_html=False)
     con001, con002, con003, con004, con005 = st.columns([0.3, 0.3, 0.3, 0.3, 0.3])
     st.caption('         ', unsafe_allow_html=False)
@@ -787,7 +1022,7 @@ with tab3 :
             f'설치비용 : 0 원'
 
     with con004 : 
-        box5 = st.checkbox('AHU 이코너마이저 설치')
+        box5 = st.checkbox('고효율 이코너마이저 설치')
         if box5 : 
             f'설치비용 : {Occupied가격} 원'
         else : 
@@ -808,7 +1043,7 @@ with tab3 :
             f'설치비용 : 0 원'
 
     with con007 : 
-        box8 = st.checkbox('고효울 조명 교체')
+        box8 = st.checkbox('고효율 조명 교체')
         if box8 : 
             f'설치비용 : {Lighting_power_density가격} 원'
         else : 
@@ -880,163 +1115,11 @@ with tab3 :
             box10 = (PR[8]*sola_E_alt)+(PR[9]*sola_F_alt) + round(PR[7]*y_alt2_kw,0)
         else :
             box10 = 0
-
+        
         개선후_태양광_합계 = format(int(round(box2 + box3 + box4 + box5 + box6 + box7 + box8 + box9,0)),',d')
         개선후_태양광_지열_합계 = format(int(round(box2 + box3 + box4 + box5 + box6 + box7 + box8 + box10,0)),',d')
 
         f'개선후(태양광) : {개선후_태양광_합계} 원'
         f'개선후(태양광+지열) : {개선후_태양광_지열_합계} 원'
-
-    st.caption('--------', unsafe_allow_html=False)  
-    st.markdown("#### 3. 기대 개선효과")
-
-    #필요정보 만들기
-    #제안1 태양광 전제월간발전량 = g*모듈개수
-    ggg = pd.DataFrame(g, columns=['월간발전량'])
-    g_all = ggg*C_alt1
-    # g_all
-
-    #제안2 전제월간발전량
-    ggg = pd.DataFrame(g, columns=['태양광_월간발전량'])
-    g_all2 = ggg*sola_C_alt
-    g_all2['지열_월간발전량'] = y_alt2_kw / 12
-    g_all2['월간_발전량 합계'] = g_all2['태양광_월간발전량'] + g_all2['지열_월간발전량']
-    ## g_all2
-    #개선전 월별 에너지 소요령값 출력
-    #h
-    BASE_연간전체 = h.groupby('Alt').agg(년간전기사용량_전체 = ('kW', 'sum'), 단위면적당_년간전기사용량_전체 = ('kW/m2', 'sum'))
-    BASE_월간전체 = h.groupby(['Alt','Month']).agg( 월간전기사용량_전체 = ('kW', 'sum'), 단위면적당_월간전기사용량_전체 = ('kW/m2', 'sum'))
-    BASE_연간원별 = h.groupby('index').agg(년간전기사용량_원별 = ('kW', 'sum'), 단위면적당_년간전기사용량_원별 = ('kW/m2', 'sum'))
-    BASE_월간원별 = h.groupby(['index','Month']).agg(년간전기사용량_원별 = ('kW', 'sum'), 단위면적당_년간전기사용량_원별 = ('kW/m2', 'sum'))
-
-    BASE_연간전체 = BASE_연간전체.reset_index()
-    BASE_월간전체 = BASE_월간전체.reset_index()
-    BASE_월간전체.drop(['단위면적당_월간전기사용량_전체'], axis=1, inplace=True)
-    BASE_월간전체['개선전_월간소요량']= round(BASE_월간전체['월간전기사용량_전체'] * 2.75,2)
-    BASE_월간전체['개선전_CO2발생량'] = round(BASE_월간전체['개선전_월간소요량']*4.781,2)
-    BASE_월간전체['개선전_필요소나무'] = round(BASE_월간전체['개선전_월간소요량']*0.1158,2)
-    # BASE_월간전체
-
-    #alt 월별 에너지 소요령값 출력
-    #i
-    ALT_연간전체 = i.groupby('Alt').agg(년간전기사용량_전체 = ('kW', 'sum'), 단위면적당_년간전기사용량_전체 = ('kW/m2', 'sum'))
-    ALT_월간전체 = i.groupby(['Alt','Month']).agg( 월간전기사용량_전체 = ('kW', 'sum'), 단위면적당_월간전기사용량_전체 = ('kW/m2', 'sum'))
-    ALT_연간원별 = i.groupby('index').agg(년간전기사용량_원별 = ('kW', 'sum'), 단위면적당_년간전기사용량_원별 = ('kW/m2', 'sum'))
-    ALT_월간원별 = i.groupby(['index','Month']).agg(년간전기사용량_원별 = ('kW', 'sum'), 단위면적당_년간전기사용량_원별 = ('kW/m2', 'sum'))
-
-    ALT_연간전체 = ALT_연간전체.reset_index()
-    ALT_월간전체 = ALT_월간전체.reset_index()
-    ALT_월간전체.drop(['단위면적당_월간전기사용량_전체'], axis=1, inplace=True)
-    ALT_월간전체['개선후_월간소요량']= round(ALT_월간전체['월간전기사용량_전체'] * 2.75,2)
-    ALT_월간전체['개선후(태양광)_신재생발전량'] = g_all['월간발전량']
-    ALT_월간전체['개선후(태양광+지열)_신재생발전량'] = g_all2['월간_발전량 합계']
-    ALT_월간전체['개선후(태양광)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량']-ALT_월간전체['개선후(태양광)_신재생발전량'],2)
-    ALT_월간전체['개선후(태양광+지열)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량']-g_all2['월간_발전량 합계'],2)
-    ALT_월간전체['개선후(태양광)_CO2발생량'] = round(ALT_월간전체['개선후(태양광)_월간소요량']*4.781,2)
-    ALT_월간전체['개선후(태양광+지열)_CO2발생량'] = round(ALT_월간전체['개선후(태양광+지열)_월간소요량']*4.781,2)
-    ALT_월간전체['개선후(태양광)_필요소나무'] = round(ALT_월간전체['개선후(태양광)_CO2발생량']*0.1158,2)
-    ALT_월간전체['개선후(태양광+지열)_필요소나무'] = round(ALT_월간전체['개선후(태양광+지열)_CO2발생량']*0.1158,2)
-    # ALT_월간전체
     
-    # co2발상량 표합침
-    co2발생량 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
-    co2발생량['개선전']=BASE_월간전체['개선전_CO2발생량']
-    co2발생량['개선후(태양광)']=ALT_월간전체['개선후(태양광)_CO2발생량']
-    co2발생량['개선후(태양광+지열)']=ALT_월간전체['개선후(태양광+지열)_CO2발생량']
-    
-    # co2발생량
-    co2발생량1 = co2발생량.set_index(keys='month', drop=True, append=False, inplace=False, verify_integrity=False)
-    
-    # 소나무 표합침 
-    소나무 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
-    소나무['개선전']=BASE_월간전체['개선전_필요소나무']
-    소나무['개선후(태양광)']=ALT_월간전체['개선후(태양광)_필요소나무']
-    소나무['개선후(태양광+지열)']=ALT_월간전체['개선후(태양광+지열)_필요소나무']
-    
-    소나무1 = 소나무.set_index(keys='month', drop=True, append=False, inplace=False, verify_integrity=False)
-    # 소나무1
-
-    #월별에너지소요량 비교표 
-    월간소요량비교 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
-    월간소요량비교['개선전'] = BASE_월간전체['개선전_월간소요량']
-    월간소요량비교['개선후(태양광)'] = ALT_월간전체['개선후(태양광)_월간소요량']
-    월간소요량비교['개선후(태양광+지열)'] = ALT_월간전체['개선후(태양광+지열)_월간소요량']
-    #년간소요량 정보 
-    BASE_년간소요량_ = round(BASE_월간전체['개선전_월간소요량'].sum(),2)
-    ALT_월간전체_ = ALT_월간전체['개선후_월간소요량'].sum()
-    g_all_ = g_all['월간발전량'].sum()
-    g_all2_ = g_all2['월간_발전량 합계'].sum()
-    ALT_년간소요량_제안1 = round(ALT_월간전체_ - g_all_,2)
-    ALT_년간소요량_제안2 = round(ALT_월간전체_ - g_all2_,2)
-    row = ['연간에너지소요량']
-    col = ['개선전', '개선후(태양광)', '개선후(태양광+지열)']
-    data_ = [[BASE_년간소요량_, ALT_년간소요량_제안1, ALT_년간소요량_제안2]]
-    년간발전량비교 =  pd.DataFrame(data = data_, index = row, columns = col)
-    ## st.dataframe(년간발전량비교)
-
-# 합계값 정의
-    개선전_CO2발생량 = round(co2발생량['개선전'].sum(),2)
-    개선후_태양광_CO2발생량 = round(co2발생량['개선후(태양광)'].sum(),2)
-    개선후_태양광_지열_CO2발생량 = round(co2발생량['개선후(태양광+지열)'].sum(),2)
-
-    개선전_필요소나무 = round(소나무['개선전'].sum(),2)
-    개선후_태양광_필요소나무 = round(소나무['개선후(태양광)'].sum(),2)
-    개선후_태양광_지열_필요소나무 = round(소나무['개선후(태양광+지열)'].sum(),2)
-
-    # f'■ 개선전  : 년간에너지소요량 {BASE_년간소요량_}kWh/yr, CO2배출량 {개선전_CO2발생량}kg'
-    # f'■ 개선후(태양광) 기대효과 : 년간에너지소요량 {ALT_년간소요량_제안1}kWh/yr, CO2배출량 {개선후_태양광_CO2발생량}kg으로 {개선후_태양광_CO2발생량/개선전_CO2발생량*100}% 절감, {개선전_필요소나무-개선후_태양광_필요소나무:0.0f}개의 소나무를 식재하는 효과'
-    # f'■ 개선후(태양광+지열) 기대효과 : 년간에너지소요량 {ALT_년간소요량_제안2}kWh/yr, CO2배출량 {개선후_태양광_지열_CO2발생량}kg으로 {개선후_태양광_지열_CO2발생량/개선전_CO2발생량*100}% 절감, {개선전_필요소나무-개선후_태양광_지열_필요소나무:0.0f}개의 소나무를 식재하는 효과'
-
-    ## st.markdown("##### ②. CO2 배출량 분석")
-    # 표만들기
-    fig1 = px.bar(co2발생량1, y=['개선전','개선후(태양광)','개선후(태양광+지열)'], title='CO2 발생량 그래프', barmode='group')
-    ## fig1
-
-    개선후_제안1_소요량절감률 = round((1-(ALT_년간소요량_제안1/BASE_년간소요량_))*100,2)
-    개선후_제안2_소요량절감률 = round((1-(ALT_년간소요량_제안2/BASE_년간소요량_))*100,2)
-
-    개선후_제안1_CO2절감률 = round((1-(개선후_태양광_CO2발생량/개선전_CO2발생량))*100,2)
-    개선후_제안2_CO2절감률 = round((1-(개선후_태양광_지열_CO2발생량/개선전_CO2발생량))*100,2)
-
-    개선후_제안1_소나무식재효과 =round(개선후_태양광_필요소나무-개선전_필요소나무,2)
-    개선후_제안2_소나무식재효과 =round(개선후_태양광_지열_필요소나무-개선전_필요소나무,2)
-
-
-
-
-    #홈페이지 나타내기 
-
-    con30, con31, con32 = st.columns([0.4, 0.4, 0.2])
-
-
-    # 표만들기
-    with con30 :
-        st.markdown("##### (1) 연간에너지 소요량 비교")
-        fig3 = px.bar(년간발전량비교, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="연간 에너지 소요량 비교", barmode='group')
-        fig3
-    with con31 :
-        월간소요량비교1=월간소요량비교.set_index(['month'])
-        st.markdown("##### (2) 월별에너지 소요량 비교")
-        fig2 = px.bar(월간소요량비교1, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="월간 에너지 소요량 비교", barmode='group')
-        fig2
-    # with con32 :
-
-
-    st.markdown("##### (3) 기대 개선효과 비교")
-        
-    st.caption('           ', unsafe_allow_html=False)  
-    st.caption('           ', unsafe_allow_html=False)
-    기대효과2 = pd.DataFrame({
-        '개선전' : [BASE_년간소요량_, 0, 0, 0, 0], 
-        '개선후(태양광)' : [ALT_년간소요량_제안1, 개선후_제안1_소요량절감률, 개선후_태양광_CO2발생량*0.001, 개선후_제안1_CO2절감률, 개선후_제안1_소나무식재효과],
-        '개선후(태양광+지열)' : [ALT_년간소요량_제안2, 개선후_제안2_소요량절감률, 개선후_태양광_지열_CO2발생량*0.001, 개선후_제안2_CO2절감률, 개선후_제안2_소나무식재효과],
-        '구분1'  : ['에너지 소요량', '에너지 소요량', 'CO2 배출량', 'CO2 배출량', '소나무식재효과'],
-        '구분2'  : ['kWh/yr', '절감률(%)', 'ton', '절감률(%)','EA']
-        })
-
-    기대효과2 = 기대효과2.set_index(['구분1', '구분2'])
-
-    st.dataframe(기대효과2.style.format("{:,.0f}"))
-
-    # st.dataframe(기대효과2.style.set_precision(0))
     
