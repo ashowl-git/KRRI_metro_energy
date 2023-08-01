@@ -1,4 +1,5 @@
 
+
 import glob 
 import os
 import sys, subprocess
@@ -676,11 +677,12 @@ with tab2 :
         WIDTH = st.number_input('＊세로길이 (mm)', 0, 5000, 2000)
         방위별경사각 = ['South_15', 'South_30', 'South_45', 'South_60', 'South_75', 'South_90', 'East_90', 'West_90', 'North_90']
         경사각도 = st.selectbox('＊방위_경사', 방위별경사각)
-        설치용량 = st.number_input('＊설비용량 [W]', 0, 1000, 400)
+        #설치용량 = st.number_input('＊설비용량 [W]', 0, 1000, 400)
         집광효율 = st.number_input('＊집광효율 (%)', 0.00, 100.00, 21.6)
         PER= st.number_input('＊Performance Ratio (%)', 0.00, 100.00, 75.00)
         
-    
+    설치용량 = 400
+
     with con13 : 
         empty()
 
@@ -988,8 +990,8 @@ with tab2 :
     Lighting_power_density가격 = format(PR[6]*area2,',d')
     지열가격1 = 0
     지열가격2 = format(int(PR[7]*y_alt2_kw),',d')
-    태양광1 = format(int((PR[8]*E_alt1)+(PR[9]*F_alt1)),',d')
-    태양광2 = format(int((PR[8]*sola_E_alt)+(PR[9]*sola_F_alt)),',d')
+    태양광1 = format(int((PR[8]*F_alt1)),',d')
+    태양광2 = format(int((PR[8]*sola_F_alt)),',d')
 
     st.caption('         ', unsafe_allow_html=False)
     st.markdown("#### 7. 기술 요소별 예상 공사비 산정 ")
@@ -1107,12 +1109,12 @@ with tab2 :
             box8 = 0
 
         if box9 == True :
-            box9 = (PR[8]*E_alt1)+(PR[9]*F_alt1)
+            box9 = (PR[8]*F_alt1)
         else :
             box9 = 0
         
         if box10 == True :
-            box10 = (PR[8]*sola_E_alt)+(PR[9]*sola_F_alt) + round(PR[7]*y_alt2_kw,0)
+            box10 = (PR[8]*sola_F_alt) + round(PR[7]*y_alt2_kw,0)
         else :
             box10 = 0
         
