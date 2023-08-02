@@ -39,7 +39,7 @@ hide_menu_style = """
         <style>
         #MainMenu {visibility: visible;}
         footer {visibility: visible;}
-        footer:after {content:'Copyright 2023. 한국철도기술연구원dnjs. All rights reserved.';
+        footer:after {content:'Copyright 2023. 한국철도기술연구원. All rights reserved.';
         display:block;
         opsition:relatiive;
         color:orange; #tomato 
