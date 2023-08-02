@@ -270,7 +270,7 @@ with tab1 :
             Lighting_power_density_ = st.number_input('조명밀도(W)_개선전', 3, 20, 7)
       
         with con4 :
-            Occupied_floor_area = st.number_input('공조면적(㎡)_개선전', 0, 100000, 6000)
+            Occupied_floor_area = st.number_input('연면적(㎡)_개선전', 1000, 100000, 6000)
             AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
             
             
@@ -318,7 +318,7 @@ with tab1 :
             
             
         with con4 :   
-            Occupied_floor_area_2 = st.number_input('공조면적(㎡)_개선', 0, 100000, 6000)
+            Occupied_floor_area_2 = st.number_input('연면적(㎡)_개선', 1000, 100000, 6000)
             AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선', options=[0, 1])
             
 
@@ -633,19 +633,19 @@ with tab2 :
     st.markdown("#### 2. 철도역사의 5대에너지(1차 에너지) 산정 과정 ")
     con001,  con003,  con005,  con007 = st.columns(4)
     with con001 : 
-        st.markdown("###### ①에너지 사용량(2차에너지)")
+        st.markdown("###### ①에너지 사용량(2차에너지), kW")
         건축물_2차_소요량_개선후
 
     with con003 : 
-        st.markdown("###### ②건축물 5대 에너지(2차에너지)")
+        st.markdown("###### ②건축물 5대 에너지(2차에너지), kW")
         i_room_elex_drop_2차
 
     with con005 : 
-        st.markdown("###### ③건축물 5대 에너지(1차에너지)")
+        st.markdown("###### ③건축물 5대 에너지(1차에너지), kW")
         i_room_elex_drop_1차
 
     with con007 : 
-        st.markdown("###### ④건축물 5대 에너지(연간 1차에너지)")
+        st.markdown("###### ④건축물 5대 에너지(연간 1차에너지), kW")
         i_room_elex_drop_1차_연
         
     st.caption('                     ', unsafe_allow_html=False)
@@ -657,30 +657,45 @@ with tab2 :
         st.markdown("###### ①건축물 기본정보")
         지역명 = ['서울','강릉', '광주', '대관령', '대구', '대전', '목포','부산', '서산', '원주', '인천', '전주', '청주', '추풍령', '춘천', '포항', '흑산도']
         지역 = st.selectbox('＊지역', 지역명)
-        area2 = st.number_input('＊공조면적(㎡)', 0, 100000, 6000)
-        st.caption("(전체 공조면적을 입력)", unsafe_allow_html=False)
-        제로에너지등급 = st.number_input('＊제로에너지목표등급 설정', 1, 5, 4)
-        st.caption("(목표하고자 하는 제로에너지 등급 입력)", unsafe_allow_html=False)
-        st.caption('                     ', unsafe_allow_html=False)
-        st.caption('--------- ', unsafe_allow_html=False)
-        st.markdown("###### ②지열에너지 기본정보")
-        area4 = st.number_input('＊지열히트펌프공급면적(㎡)', 1000, 100000, 5000)
-        st.caption("(지열히트펌프를 공급하고자 하는 실의 면적 입력)", unsafe_allow_html=False)
-    
+        area2 = st.number_input('＊연면적(㎡)', 1000, 100000, 6000)
+        #st.caption("(전체 연면적을 입력)", unsafe_allow_html=False)
+        
+        air_ratio = st.number_input('＊공조면적비율(%)', 0, 100, 8)
+        st.caption("(전체연면적 대비 외기와 직접 통하지 않으며 냉난방이 공급되는 면적의 비율)", unsafe_allow_html=False)
+
+        area_air = area2*(air_ratio/100) #공조면적
+        f' ▶ 공조면적 : {area_air}㎡'
+
+        #st.caption('                     ', unsafe_allow_html=False)
+        #st.caption('--------- ', unsafe_allow_html=False)
+        #st.markdown("###### ②지열에너지 기본정보")
+        #area4 = st.number_input('＊지열히트펌프공급면적(㎡)', 1000, 100000, 5000)
+        #st.caption("(지열히트펌프를 공급하고자 하는 실의 면적 입력)", unsafe_allow_html=False)
+
+
     with con11 : 
         empty()    
        
     with con12 : 
-        st.markdown("###### ③태양광 모듈 1개에 대한 기본정보")
-        LENGTH = st.number_input('＊가로길이 (mm)', 0, 5000, 1000)
-        WIDTH = st.number_input('＊세로길이 (mm)', 0, 5000, 2000)
-        방위별경사각 = ['South_15', 'South_30', 'South_45', 'South_60', 'South_75', 'South_90', 'East_90', 'West_90', 'North_90']
-        경사각도 = st.selectbox('＊방위_경사', 방위별경사각)
+        st.markdown("###### ②제로에너지목표등급 설정")
+        제로에너지등급 = st.number_input('＊제로에너지목표등급 설정', 1, 4, 4)
+        st.caption("(목표하고자 하는 제로에너지 등급 입력)", unsafe_allow_html=False)
+
+        #st.markdown("###### ③태양광 모듈 1개에 대한 기본정보")
+        #LENGTH = st.number_input('＊가로길이 (mm)', 0, 5000, 1000)
+        #WIDTH = st.number_input('＊세로길이 (mm)', 0, 5000, 2000)
+        #방위별경사각 = ['South_15', 'South_30', 'South_45', 'South_60', 'South_75', 'South_90', 'East_90', 'West_90', 'North_90']
+        #경사각도 = st.selectbox('＊방위_경사', 방위별경사각)
         #설치용량 = st.number_input('＊설비용량 [W]', 0, 1000, 400)
-        집광효율 = st.number_input('＊집광효율 (%)', 0.00, 100.00, 21.6)
-        PER= st.number_input('＊Performance Ratio (%)', 0.00, 100.00, 75.00)
-        
+        #집광효율 = st.number_input('＊집광효율 (%)', 0.00, 100.00, 21.6)
+        #PER= st.number_input('＊Performance Ratio (%)', 0.00, 100.00, 75.00)
+
+    LENGTH = 1000
+    WIDTH = 2000
+    경사각도 = 'South_45'
     설치용량 = 400
+    집광효율 = 21.6
+    PER = 75
 
     with con13 : 
         empty()
@@ -784,8 +799,6 @@ with tab2 :
     ee = pd.DataFrame(e, index=['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['일일발전량'])
     ## st.dataframe(ee)
     
-
-
     #월간발전량 = g
     g = [e[0] * f[0], e[1] * f[1], e[2] * f[2], e[3] * f[3], e[4] * f[4], e[5] * f[5], e[6] * f[6], e[7] * f[7], e[8] * f[8], e[9] * f[9], e[10] * f[10], e[11] * f[11]]
     gg = pd.DataFrame(g, index=['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['월간발전량'])
@@ -801,7 +814,7 @@ with tab2 :
     D = 설치용량/1000 
 
     #alt1 필요 태양광 용량 및 면적
-    A_alt1 = round(result25*area2,0) # 전체 건물의 필요한 에너지 생산량
+    A_alt1 = round(result25*area_air,0) # 전체 건물의 필요한 에너지 생산량 > 공조면적값으로 변경(23.08.02)
     C_alt1 = round(A_alt1/B,0) #필요한 태양광 모듈의 개수
     E_alt1 = round(C_alt1*D,0) #총 필요한 태양광 용량 KW   
     F_alt1 = round(C_alt1*집광면적,0)#총 필요한 집광면적
@@ -815,9 +828,9 @@ with tab2 :
     ##st.dataframe(DF7)
     
     #지열
-    y_alt2_kw = round(area4/0.056051-1609.64)
-    
-    
+    area4 = area2 #지열히트펌프공급면적
+    y_alt2_kw = round((area4/0.056051-1609.64)*(air_ratio/100))
+        
     # 태양광으로 대체해야할 에너지생산량 계산(전체 건물의 필요한 에너지 생산량-지열히트펌프설치면적)_alt
     # st.markdown("##### ▣ 태양광")
 
@@ -834,6 +847,10 @@ with tab2 :
     #홈페이지 나타내기
     with con020 :
         st.markdown("#### 5. 태양광 및  지열 필요 용량 산정")
+
+        st.text('▶ 목표등급 달성을 위한 총 필요에너지생산량(공조면적기준)')
+        f'{A_alt1} kWh/yr'
+
         idx1 = [['개선후(태양광)', '개선후(태양광+지열)']]
         columns_list = [('태양광 용량(kW)'), ('태양광 집광면적(㎡)'), ('태양광 모듈개수(EA)'), ('지열 용량(kW)')]
         data1 = np.array([[E_alt1, F_alt1, C_alt1, 0], [sola_E_alt, sola_F_alt, sola_C_alt, y_alt2_kw]])
@@ -841,10 +858,6 @@ with tab2 :
         신재생설치계획 = pd.DataFrame(data1, index = idx1, columns = columns_list)
         st.dataframe(신재생설치계획.style.format("{:,.0f}"))
         
-
-
-    
-
     st.caption('--------', unsafe_allow_html=False)  
     st.markdown("#### 6. 신재생 설치로 인한 기대 개선 효과 분석 ")
 
@@ -888,8 +901,8 @@ with tab2 :
     ALT_월간전체['개선후_월간소요량']= round(ALT_월간전체['월간전기사용량_전체'] * 2.75,2)
     ALT_월간전체['개선후(태양광)_신재생발전량'] = g_all['월간발전량']
     ALT_월간전체['개선후(태양광+지열)_신재생발전량'] = g_all2['월간_발전량 합계']
-    ALT_월간전체['개선후(태양광)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량']-ALT_월간전체['개선후(태양광)_신재생발전량'],2)
-    ALT_월간전체['개선후(태양광+지열)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량']-g_all2['월간_발전량 합계'],2)
+    ALT_월간전체['개선후(태양광)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량'] * (air_ratio/100)-ALT_월간전체['개선후(태양광)_신재생발전량'],2) #공조면적비율 곱
+    ALT_월간전체['개선후(태양광+지열)_월간소요량'] = round(ALT_월간전체['개선후_월간소요량'] * (air_ratio/100)-g_all2['월간_발전량 합계'],2) #공조면적비율 곱
     ALT_월간전체['개선후(태양광)_CO2발생량'] = round(ALT_월간전체['개선후(태양광)_월간소요량']*4.781,2)
     ALT_월간전체['개선후(태양광+지열)_CO2발생량'] = round(ALT_월간전체['개선후(태양광+지열)_월간소요량']*4.781,2)
     ALT_월간전체['개선후(태양광)_필요소나무'] = round(ALT_월간전체['개선후(태양광)_CO2발생량']*0.1158,2)
@@ -916,18 +929,18 @@ with tab2 :
 
     #월별에너지소요량 비교표 
     월간소요량비교 = pd.DataFrame(['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'], columns=['month'])
-    월간소요량비교['개선전'] = BASE_월간전체['개선전_월간소요량']
+    월간소요량비교['개선전'] = BASE_월간전체['개선전_월간소요량'] * (air_ratio/100) #공조면적비율 곱
     월간소요량비교['개선후(태양광)'] = ALT_월간전체['개선후(태양광)_월간소요량']
     월간소요량비교['개선후(태양광+지열)'] = ALT_월간전체['개선후(태양광+지열)_월간소요량']
     
     #연간소요량 정보 
-    BASE_연간소요량_ = round(BASE_월간전체['개선전_월간소요량'].sum(),2)
-    ALT_월간전체_ = ALT_월간전체['개선후_월간소요량'].sum()
+    BASE_연간소요량_ = round(BASE_월간전체['개선전_월간소요량'].sum(),2) * (air_ratio/100) #공조면적비율 곱
+    ALT_월간전체_ = ALT_월간전체['개선후_월간소요량'].sum() * (air_ratio/100) #공조면적비율 곱
     g_all_ = g_all['월간발전량'].sum()
     g_all2_ = g_all2['월간_발전량 합계'].sum()
     ALT_연간소요량_제안1 = round(ALT_월간전체_ - g_all_,2)
     ALT_연간소요량_제안2 = round(ALT_월간전체_ - g_all2_,2)
-    row = ['연간에너지소요량']
+    row = ['연간에너지소요량(kW)']
     col = ['개선전', '개선후(태양광)', '개선후(태양광+지열)']
     data_ = [[BASE_연간소요량_, ALT_연간소요량_제안1, ALT_연간소요량_제안2]]
     연간발전량비교 =  pd.DataFrame(data = data_, index = row, columns = col)
@@ -960,14 +973,12 @@ with tab2 :
     개선후_제안1_소나무식재효과 =round(개선후_태양광_필요소나무-개선전_필요소나무,2)
     개선후_제안2_소나무식재효과 =round(개선후_태양광_지열_필요소나무-개선전_필요소나무,2)
 
-
-
-
     #홈페이지 나타내기 
     con30, con31 = st.columns(2)
 
     # 표만들기
     with con30 :
+        #연간발전량비교1=연간발전량비교.set_index(['month'])
         st.markdown("##### (1) 연간에너지 소요량 비교")
         fig3 = px.bar(연간발전량비교, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="연간 에너지 소요량 비교", barmode='group')
         fig3
@@ -980,33 +991,33 @@ with tab2 :
     
     # 공사비 
     PR = DF7['가격']
-    ACH50가격 = format(PR[0]*area2,',d')
-    Chiller_COP가격 = format(PR[1]*area2,',d')
-    Fan_total_efficiency가격 = format(PR[2]*area2,',d')
-    Occupied가격 = format(PR[3]*area2,',d')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-    Pump_efficiency가격 = format(PR[4]*area2,',d')
-    heat_recover_effectiveness가격 = format(PR[5]*area2,',d')
-    Lighting_power_density가격 = format(PR[6]*area2,',d')
+    ACH50가격 = format(PR[0]*int(area_air),',d')
+    Chiller_COP가격 = format(PR[1]*int(area_air),',d')
+    Fan_total_efficiency가격 = format(PR[2]*int(area_air),',d')
+    Occupied가격 = format(PR[3]*int(area_air),',d')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    Pump_efficiency가격 = format(PR[4]*int(area_air),',d')
+    heat_recover_effectiveness가격 = format(PR[5]*int(area_air),',d')
+    Lighting_power_density가격 = format(PR[6]*int(area_air),',d')
     지열가격1 = 0
     지열가격2 = format(int(PR[7]*y_alt2_kw),',d')
     태양광1 = format(int((PR[8]*F_alt1)),',d')
     태양광2 = format(int((PR[8]*sola_F_alt)),',d')
 
     st.caption('         ', unsafe_allow_html=False)
-    st.markdown("#### 7. 기술 요소별 예상 공사비 산정 ")
+    st.markdown("#### 7. 기술 요소별 예상 공사비 산정(공조면적 기준)")
     st.caption('(각 항목 체크시 예상공사비 산정됨)', unsafe_allow_html=False)
     st.caption('         ', unsafe_allow_html=False)
     con001, con002, con003, con004, con005 = st.columns([0.3, 0.3, 0.3, 0.3, 0.3])
     st.caption('         ', unsafe_allow_html=False)
     st.caption('         ', unsafe_allow_html=False)
     con006, con007, con008, con009, con010 = st.columns([0.3, 0.3, 0.3, 0.3, 0.3])
+
     with con001 : 
         box2 = st.checkbox('기밀공사')
         if box2 : 
             f'설치비용 : {ACH50가격} 원'
         else : 
             f'설치비용 : 0 원'
-
 
     with con002 : 
         box3 = st.checkbox('고효율 냉동기 교체')
@@ -1073,37 +1084,37 @@ with tab2 :
     with con010 :
         box11  = st.write('예상공사비')
         if box2 == True :
-            box2 = PR[0]*area2
+            box2 = PR[0]*area_air
         else :
             box2 = 0
                 
         if box3 == True :
-            box3 = PR[1]*area2
+            box3 = PR[1]*area_air
         else :
             box3 = 0
 
         if box4 == True :
-            box4 = PR[2]*area2
+            box4 = PR[2]*area_air
         else :
             box4 = 0
 
         if box5 == True :
-            box5 = PR[3]*area2 
+            box5 = PR[3]*area_air
         else :
             box5 = 0
 
         if box6 == True :
-            box6 = PR[4]*area2
+            box6 = PR[4]*area_air
         else :
             box6 = 0
 
         if box7 == True :
-            box7 = PR[5]*area2
+            box7 = PR[5]*area_air
         else :
             box7 = 0
 
         if box8 == True :
-            box8 = PR[6]*area2
+            box8 = PR[6]*area_air
         else :
             box8 = 0
 
