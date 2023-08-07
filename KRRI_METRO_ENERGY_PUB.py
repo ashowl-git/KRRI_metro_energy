@@ -147,7 +147,7 @@ with tab1 :
         return pd.read_excel('data/metro_sim_month.xlsx')
     df_raw = df_raw()
 
-    df_raw = pd.read_excel('data/metro_sim_month.xlsx')/
+    df_raw = pd.read_excel('data/metro_sim_month.xlsx')
 
     box_학습데이터_업로드 = st.checkbox('학습 데이터 업로드(필요시 체크)')
     if box_학습데이터_업로드 : 
