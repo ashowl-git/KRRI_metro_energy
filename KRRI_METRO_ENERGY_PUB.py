@@ -87,7 +87,8 @@ with tab0 :
         @st.cache
         def show_image(path):
             img = Image.open(path)
-            return img
+            st.image(img)
+
         
         img4 = show_image('data/사용자 메뉴얼_2.jpg')
 
