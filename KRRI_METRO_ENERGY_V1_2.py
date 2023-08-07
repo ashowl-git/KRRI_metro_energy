@@ -57,8 +57,8 @@ tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브º액�
 #  필요한 데이터 불러오기
 # 캐시데이터에 올려두기
 @st.cache_data
-def read_excel_sun(path):
-    data = pd.read_excel(path)
+def read_excel_sun():
+    data = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')
     return data
 
 DF1 = read_excel_sun('data/DB.xlsx', sheet_name='01_sun')
