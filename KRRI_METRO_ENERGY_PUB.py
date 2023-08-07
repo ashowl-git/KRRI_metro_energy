@@ -57,10 +57,11 @@ tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브-액티
 #  필요한 데이터 불러오기
 
 @st.cache_data
-def read_excel_sun(url):
+def get_sun_data(path):
+    data = pd.read_excel(path)
     return data
 
-DF1 = read_excel_sun(pd.read_excel('data/DB.xlsx', sheet_name='01_sun'))
+DF1 = get_sun_data('data/DB.xlsx', sheet_name='01_sun')
 
 # DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
 DF2 = pd.read_excel('data/DB.xlsx', sheet_name='02_sun2') #경사일사량
