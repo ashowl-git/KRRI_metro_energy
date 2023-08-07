@@ -58,7 +58,6 @@ tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브º액�
 # 캐시데이터에 올려두기
 @st.cache_data
 def read_excel_sun(pathth):
-    data = pd.read_excel(pathth)
     return data
 
 DF1 = read_excel_sun('data/DB.xlsx', sheet_name='01_sun')
