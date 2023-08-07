@@ -90,6 +90,19 @@ with tab0 :
             st.image(img)
 
         img4 = show_image('data/사용자 메뉴얼_2.jpg')
+        img5 = show_image('data/사용자 메뉴얼_3.jpg')
+        img6 = show_image('data/사용자 메뉴얼_4.jpg')
+        img7 = show_image('data/사용자 메뉴얼_5.jpg')
+        img8 = show_image('data/사용자 메뉴얼_6.jpg')
+        img9 = show_image('data/사용자 메뉴얼_7.jpg')
+        img10 = show_image('data/사용자 메뉴얼_8.jpg')
+        img11 = show_image('data/사용자 메뉴얼_9.jpg')
+        img12 = show_image('data/사용자 메뉴얼_10.jpg')
+        img13 = show_image('data/사용자 메뉴얼_11.jpg')
+        img14 = show_image('data/사용자 메뉴얼_12.jpg')
+        img15 = show_image('data/사용자 메뉴얼_13.jpg')
+        img16 = show_image('data/사용자 메뉴얼_14.jpg')
+        img17 = show_image('data/사용자 메뉴얼_15.jpg')
 
 
 
