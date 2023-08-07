@@ -55,6 +55,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브-액티브 기술을 적용한 2차 에너지 성능 분석', 'ZEB 취득을 위한 신재생 에너지 제안'])
 
 #  필요한 데이터 불러오기
+@st.cache_data
 def get_sun_data(path, sheet):
     data = pd.read_excel(path, sheet_name=sheet)
     return data
