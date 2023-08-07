@@ -61,7 +61,7 @@ def read_excel_sun(path):
     data = pd.read_excel(path)
     return data
 
-DF1 = read_excel_sun(pd.read_excel('data/DB.xlsx', sheet_name='01_sun'))
+DF1 = read_excel_sun('data/DB.xlsx', sheet_name='01_sun')
 
 # DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
 DF2 = pd.read_excel('data/DB.xlsx', sheet_name='02_sun2') #경사일사량
