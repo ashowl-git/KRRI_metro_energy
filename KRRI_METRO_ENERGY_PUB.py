@@ -119,18 +119,18 @@ with tab0 :
 
 #_________________________________________________________________________________________________________________________________________________
 
-@st.cache_data
-def get_raw_data(path):
-    data = pd.read_excel(path)
-    return data
-df_raw = get_raw_data('data/metro_sim_month.xlsx')
+# @st.cache_data
+# def get_raw_data(path):
+#     data = pd.read_excel(path)
+#     return data
+# df_raw = get_raw_data('data/metro_sim_month.xlsx')
 
 with tab1 : 
 
     # 학습파일 불러오기
 
 
-    # df_raw = pd.read_excel('data/metro_sim_month.xlsx')
+    df_raw = pd.read_excel('data/metro_sim_month.xlsx')
 
     box_학습데이터_업로드 = st.checkbox('학습 데이터 업로드(필요시 체크)')
     if box_학습데이터_업로드 : 
