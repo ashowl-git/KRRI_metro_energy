@@ -52,7 +52,7 @@ hide_menu_style = """
 st.set_page_config(layout="wide", page_title="KRRI_metro_Energy")
 st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
-tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브º액티브 기술을 적용한 2차 에너지 성능 분석', '에너지 절감을 위한 신재생 에너지 제안'])
+tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브-액티브 기술을 적용한 2차 에너지 성능 분석', 'ZEB 취득을 위한 신재생 에너지 제안'])
 
 #                                                                                                                                                                                                          필요한 데이터 불러오기
 DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
@@ -70,19 +70,7 @@ with tab0 :
 
     with con1 : 
         st.subheader('제로에너지 철도역사 건설 전략수립 의사결정 지원 프로그램')
-        st.markdown("#### 1. 개발개요")        
-        img1 = Image.open('data/그림1.jpg')
-        st.image(img1)
 
-        st.markdown("#### 2. 프로그램 구성")
-        img2 = Image.open('data/다이어그램.jpg')
-        st.image(img2)
-
-        st.markdown("#### ３. 건축물 에너지 효율등급 및 제로에너지 인증")
-        img１５ = Image.open('data/인증설명_1.jpg')
-        st.image(img１５)
-
-        st.markdown("#### ４. 사용자 메뉴얼")
         img4 = Image.open('data/사용자 메뉴얼_2.jpg')
         st.image(img4)
         img5 = Image.open('data/사용자 메뉴얼_3.jpg')
@@ -105,6 +93,12 @@ with tab0 :
         st.image(img13)
         img14 = Image.open('data/사용자 메뉴얼_12.jpg')
         st.image(img14)
+        img15 = Image.open('data/사용자 메뉴얼_13.jpg')
+        st.image(img15)
+        img16 = Image.open('data/사용자 메뉴얼_14.jpg')
+        st.image(img16)
+        img17 = Image.open('data/사용자 메뉴얼_15.jpg')
+        st.image(img17)
 
     with empty2 :
         empty()
@@ -245,6 +239,18 @@ with tab1 :
     # Sidebar
     # Header of Specify Input Parameters
 
+    #개선전후 공통정보
+    st.subheader('■ 철도역사 기본정보 입력')
+    basecon1, basecon2, basecon3, basecon4 = st.columns([0.5, 0.5, 0.5, 0.5])
+    with basecon1 : 
+        Ground_base = st.select_slider('지하층유무', options=[0, 1])
+    with basecon2 :   
+        Basement_base = st.select_slider('지상층유무_개선전', options=[0, 1])
+    with basecon3 :     
+        Floor_base = st.select_slider('전체층규모_개선전', options=[1,2,3,4,5])
+    with basecon4 :   
+        Occupied_floor_area_base = st.number_input('연면적(㎡)', 1000, 100000, 6000)
+
     # base 모델 streamlit 인풋
     st.caption(' ', unsafe_allow_html=False)
     st.caption('--------', unsafe_allow_html=False)
@@ -255,26 +261,28 @@ with tab1 :
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
         # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
-            Ground = st.select_slider('지하층유무_개선전', options=[0, 1])
+            #Ground = st.select_slider('지하층유무_개선전', options=[0, 1])
+            Ground = Ground_base
             ACH50 = st.number_input('침기율(ACH/50pa)_개선전', 0, 50, 25)
             Pump_efficiency = st.number_input('펌프효율_개선전', 0.0, 1.0, 0.7)
             
         with con2 : 
-            Basement = st.select_slider('지상층유무_개선전', options=[0, 1])
+            #Basement = st.select_slider('지상층유무_개선전', options=[0, 1])
+            Basement = Basement_base
             Chiller_COP = st.number_input('냉동기(COP)_개선전', 4, 9, 6)
             heat_recover_effectiveness = st.number_input('전열교환효율_개선전', 0.0, 1.0, 0.7)
        
         with con3 : 
-            Floor = st.select_slider('전체층규모_개선전', options=[1,2,3,4,5])
+            #Floor = st.select_slider('전체층규모_개선전', options=[1,2,3,4,5])
+            Floor = Floor_base
             Fan_total_efficiency = st.number_input('팬효율_개선전', 0.0, 1.0, 0.7)
-            Lighting_power_density_ = st.number_input('조명밀도(W)_개선전', 3, 20, 7)
+            Lighting_power_density_ = st.number_input('조명밀도(W/㎡)_개선전', 3, 20, 7)
       
         with con4 :
-            Occupied_floor_area = st.number_input('연면적(㎡)_개선전', 1000, 100000, 6000)
+            #Occupied_floor_area = st.number_input('연면적(㎡)_개선전', 1000, 100000, 6000)
+            Occupied_floor_area = Occupied_floor_area_base
             AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
             
-            
-
             data = {'ACH50': ACH50,
                     'Lighting_power_density_': Lighting_power_density_,
                     'Chiller_COP': Chiller_COP,
@@ -302,28 +310,29 @@ with tab1 :
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
             # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
-            Ground_2 = st.select_slider('지하층유무_개선', options=[0, 1]) 
-            ACH50_2 = st.number_input('침기율(ACH/50pa)_개선', 0, 50, 25)
-            Pump_efficiency_2 = st.number_input('펌프효율_개선', 0.0, 1.0, 0.7)
+            #Ground_2 = st.select_slider('지하층유무_개선후', options=[0, 1]) 
+            Ground_2 = Ground_base
+            ACH50_2 = st.number_input('침기율(ACH/50pa)_개선후', 0, 50, 25)
+            Pump_efficiency_2 = st.number_input('펌프효율_개선후', 0.0, 1.0, 0.7)
             
         with con2 : 
-            Basement_2 = st.select_slider('지상층유무_개선', options=[0, 1])
-            Chiller_COP_2 = st.number_input('냉동기(COP)_개선', 4, 9, 6)
-            heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선', 0.0, 1.0, 0.7)
+            #Basement_2 = st.select_slider('지상층유무_개선후', options=[0, 1])
+            Basement_2 = Basement_base
+            Chiller_COP_2 = st.number_input('냉동기(COP)_개선후', 4, 9, 6)
+            heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선후', 0.0, 1.0, 0.7)
             
         with con3 :  
-            Floor_2 = st.select_slider('전체층규모_개선', options=[1,2,3,4,5])   
-            Fan_total_efficiency_2 = st.number_input('팬효율_개선', 0.0, 1.0, 0.7)
-            Lighting_power_density__2 = st.number_input('조명밀도(W)_개선', 3, 20, 7)
+            #Floor_2 = st.select_slider('전체층규모_개선후', options=[1,2,3,4,5])   
+            Floor_2 = Floor_base
+            Fan_total_efficiency_2 = st.number_input('팬효율_개선후', 0.0, 1.0, 0.7)
+            Lighting_power_density__2 = st.number_input('조명밀도(W/㎡)_개선후', 3, 20, 7)
             
             
         with con4 :   
-            Occupied_floor_area_2 = st.number_input('연면적(㎡)_개선', 1000, 100000, 6000)
-            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선', options=[0, 1])
+            #Occupied_floor_area_2 = st.number_input('연면적(㎡)_개선후', 1000, 100000, 6000)
+            Occupied_floor_area_2 = Occupied_floor_area_base
+            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선후', options=[0, 1])
             
-
-            
-
             data2 = {'ACH50_2': ACH50_2,
                 'Lighting_power_density__2': Lighting_power_density__2,
                 'Chiller_COP_2': Chiller_COP_2,
@@ -650,21 +659,25 @@ with tab2 :
         
     st.caption('                     ', unsafe_allow_html=False)
     st.caption('--------- ', unsafe_allow_html=False)
-    st.markdown("#### 3. 신재생 산정을 위한 기본정보 입력")
+    st.markdown("#### 3. 신재생 용량 산정을 위한 기본정보 입력")
     con10, con11, con12, con13 = st.columns([0.5, 0.2, 0.5, 0.2])
 
     with con10 : 
         st.markdown("###### ①건축물 기본정보")
         지역명 = ['서울','강릉', '광주', '대관령', '대구', '대전', '목포','부산', '서산', '원주', '인천', '전주', '청주', '추풍령', '춘천', '포항', '흑산도']
         지역 = st.selectbox('＊지역', 지역명)
-        area2 = st.number_input('＊연면적(㎡)', 1000, 100000, 6000)
+
+        #area2 = st.number_input('＊연면적(㎡)', 1000, 100000, 6000)
+        area2 = Occupied_floor_area_base
         #st.caption("(전체 연면적을 입력)", unsafe_allow_html=False)
         
         air_ratio = st.number_input('＊공조면적비율(%)', 0, 100, 8)
         st.caption("(전체연면적 대비 외기와 직접 통하지 않으며 냉난방이 공급되는 면적의 비율)", unsafe_allow_html=False)
 
         area_air = area2*(air_ratio/100) #공조면적
-        f' ▶ 공조면적 : {area_air}㎡'
+        area_air2 = format(int(area_air),',d')
+        f' ▶ 공조면적 : {area_air2}㎡'
+
 
         #st.caption('                     ', unsafe_allow_html=False)
         #st.caption('--------- ', unsafe_allow_html=False)
@@ -730,25 +743,25 @@ with tab2 :
 
     con010,  con020 = st.columns(2)
     with con010 : 
-        st.markdown("#### 4. 신재생 필요발전용량 산정")
+        st.markdown("#### 4. 신재생 필요 발전 용량 산정")
 
-        st.text('▶ 개선후 철도역사의 단위면적당 연간 1차에너자 소요량')
+        st.text('▶ 개선후 철도역사의 단위면적당 연간 1차 에너지 소요량')
         result11 = round(i_room_elex_drop_1차_연.at['개선후', '단위면적당_연간전기사용량'],2)
         f' {result11}kWh/㎡yr'
         #항목1_제로에너지 
-        st.text('▶ (항목1)선택한 ZEB등급 취득을 위해 필요한 단위면적당 연간 1차에너지 생산량')
+        st.text('▶ (항목1)선택한 ZEB등급 취득을 위해 필요한 단위면적당 연간 1차 에너지 생산량')
         result22 = round(result2.at['제로에너지', '개선후'],2)
         f'{result22} kWh/㎡yr'
     
         #항목2_에효 1++(비주거용 140 미만)
-        st.text('▶ (항목2)건축물에너지효율등급 1++등급 취득을 위해 필요한 단위면적당 연간 에너지 생산량(1차에너지)')
+        st.text('▶ (항목2)건축물에너지효율등급 1++등급 취득을 위해 필요한 단위면적당 연간 1차 에너지 생산량')
         result23 = round(result2.at['에너지효율등급', '개선후'],2)
         f'{result23} kWh/㎡yr'
         #결론
-        st.text('▶ (결론1)단위면적당 연간 필요에너지생산량(1차에너지)')
+        st.text('▶ (결론1)단위면적당 연간 필요 1차 에너지 생산량')
         result24 = round(result2.at['최대값', '개선후'],2)
         f'{result24} kWh/㎡yr'
-        st.text('▶ (결론2)단위면적당 연간 필요에너지생산량(2차에너지)')
+        st.text('▶ (결론2)단위면적당 연간 필요 2차 에너지 생산량')
         result25 = round(result24/2.75,2)
         f'{result25} kWh/㎡yr'
     
