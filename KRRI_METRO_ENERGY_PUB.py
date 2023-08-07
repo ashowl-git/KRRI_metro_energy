@@ -103,33 +103,94 @@ with tab0 :
     with con1 : 
         st.subheader('제로에너지 철도역사 건설 전략수립 의사결정 지원 프로그램')
 
-        img4 = Image.open('data/사용자 메뉴얼_2.jpg')
+
+        @st.cache
+        def img4():
+            return Image.open('data/사용자 메뉴얼_2.jpg')
+        img4 = img4()
+
+        @st.cache
+        def img5():
+            return Image.open('data/사용자 메뉴얼_3.jpg')
+        img5 = img5()
+
+        @st.cache
+        def img6():
+            return Image.open('data/사용자 메뉴얼_4.jpg')
+        img6 = img6()
+
+        @st.cache
+        def img7():
+            return Image.open('data/사용자 메뉴얼_5.jpg')
+        img17 = img7()
+
+        @st.cache
+        def img8():
+            return Image.open('data/사용자 메뉴얼_6.jpg')
+        img8 = img8()
+
+
+        @st.cache
+        def img9():
+            return Image.open('data/사용자 메뉴얼_7.jpg')
+        img9= img9()
+
+        @st.cache
+        def img10():
+            return Image.open('data/사용자 메뉴얼_8.jpg')
+        img17 = img10()
+
+        @st.cache
+        def img11():
+            return Image.open('data/사용자 메뉴얼_9.jpg')
+        img11 = img11()
+
+        @st.cache
+        def img12():
+            return Image.open('data/사용자 메뉴얼_10.jpg')
+        img12 = img12()
+
+        @st.cache
+        def img13():
+            return Image.open('data/사용자 메뉴얼_11.jpg')
+        img13 = img13()
+
+        @st.cache
+        def img14():
+            return Image.open('data/사용자 메뉴얼_12.jpg')
+        img14 = img14()
+
+        @st.cache
+        def img15():
+            return Image.open('data/사용자 메뉴얼_13.jpg')
+        img15 = img15()
+
+        @st.cache
+        def img16():
+            return Image.open('data/사용자 메뉴얼_14.jpg')
+        mg16 = img16()
+
+
+        @st.cache
+        def img17():
+            return Image.open('data/사용자 메뉴얼_15.jpg')
+        img17 = img17()
+
+
+
+
         st.image(img4)
-        img5 = Image.open('data/사용자 메뉴얼_3.jpg')
         st.image(img5)
-        img6 = Image.open('data/사용자 메뉴얼_4.jpg')
-        st.image(img6)
-        img7 = Image.open('data/사용자 메뉴얼_5.jpg')
         st.image(img7)
-        img8 = Image.open('data/사용자 메뉴얼_6.jpg')
         st.image(img8)
-        img9 = Image.open('data/사용자 메뉴얼_7.jpg')
         st.image(img9)
-        img10 = Image.open('data/사용자 메뉴얼_8.jpg')
         st.image(img10)
-        img11 = Image.open('data/사용자 메뉴얼_9.jpg')
         st.image(img11)
-        img12 = Image.open('data/사용자 메뉴얼_10.jpg')
         st.image(img12)
-        img13 = Image.open('data/사용자 메뉴얼_11.jpg')
         st.image(img13)
-        img14 = Image.open('data/사용자 메뉴얼_12.jpg')
         st.image(img14)
-        img15 = Image.open('data/사용자 메뉴얼_13.jpg')
         st.image(img15)
-        img16 = Image.open('data/사용자 메뉴얼_14.jpg')
         st.image(img16)
-        img17 = Image.open('data/사용자 메뉴얼_15.jpg')
         st.image(img17)
 
     with empty2 :
