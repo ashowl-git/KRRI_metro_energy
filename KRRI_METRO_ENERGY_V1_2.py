@@ -58,14 +58,16 @@ tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브º액�
 # 캐시데이터에 올려두기
 
 
-@st.cache_data
-def get_sun_data(path):
-    data = pd.read_excel(path)
-    return data
-DF1 = get_sun_data('data/DB.xlsx', sheet_name='01_sun')
+# @st.cache_data
+# def get_sun_data(path):
+#     data = pd.read_excel(path)
+#     return data
 
 
-# DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
+# DF1 = get_sun_data('data/DB.xlsx', sheet_name='01_sun')
+
+
+DF1 = pd.read_excel('data/DB.xlsx', sheet_name='01_sun')  #일사량
 DF2 = pd.read_excel('data/DB.xlsx', sheet_name='02_sun2') #경사일사량
 DF3 = pd.read_excel('data/DB.xlsx', sheet_name='03_clearsky') # 맑은날
 DF5 = pd.read_excel('data/DB.xlsx', sheet_name='04_renewable') # 신재생
