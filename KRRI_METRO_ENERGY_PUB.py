@@ -119,16 +119,16 @@ with tab0 :
 
 #_________________________________________________________________________________________________________________________________________________
 
-
+@st.cache_data
+def get_raw_data(path):
+    data = pd.read_excel(path)
+    return data
+df_raw = get_raw_data('data/metro_sim_month.xlsx')
 
 with tab1 : 
 
     # 학습파일 불러오기
-    @st.cache_data
-    def get_raw_data(path):
-        data = pd.read_excel(path)
-        return data
-    df_raw = get_raw_data('data/metro_sim_month.xlsx')
+
 
     # df_raw = pd.read_excel('data/metro_sim_month.xlsx')
 
