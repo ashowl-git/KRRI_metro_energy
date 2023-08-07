@@ -18,7 +18,8 @@ import cufflinks as cf
 import math
 from datetime import datetime
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-``
+
+
 # 사이킷런 라이브러리 불러오기 _ 통계, 학습 테스트세트 분리, 선형회귀등
 from scipy import stats
 from sklearn.model_selection import train_test_split
@@ -35,7 +36,7 @@ pd.set_option('display.float_format', '{:,.2f}'.format)
 
 
 # # hide the hamburger menu? hidden or visible
-hide_menu_style = """`
+hide_menu_style = """
         <style>
         #MainMenu {visibility: visible;}
         footer {visibility: visible;}
