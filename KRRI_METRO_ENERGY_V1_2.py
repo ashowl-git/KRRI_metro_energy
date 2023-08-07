@@ -256,7 +256,7 @@ with tab1 :
     st.caption('--------', unsafe_allow_html=False)
     st.subheader('■ 현 철도역사 건물 정보입력')
     
-        
+    @st.cache_resource
     def user_input_features():
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
         # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
@@ -305,7 +305,7 @@ with tab1 :
     st.caption('--------', unsafe_allow_html=False)
     st.subheader('■ 개선하고자 하는 철도역사 건물 정보입력')
     
-
+    @st.cache_resource
     def user_input_features2():
         con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
             # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
