@@ -89,8 +89,10 @@ with tab0 :
             img = Image.open(path)
             st.image(img)
 
-        
-        img4 = show_image('data/사용자 메뉴얼_2.jpg')
+        show_image('data/사용자 메뉴얼_2.jpg')
+
+
+
 
         # img4 = Image.open('data/사용자 메뉴얼_2.jpg')
         # st.image(img4)
