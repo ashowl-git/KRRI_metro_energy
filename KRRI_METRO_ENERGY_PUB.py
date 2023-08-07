@@ -84,7 +84,7 @@ with tab0 :
     with con1 : 
         st.subheader('제로에너지 철도역사 건설 전략수립 의사결정 지원 프로그램')
 
-        
+        @st.cache
         def show_image(path):
             img = Image.open(path)
             return img
