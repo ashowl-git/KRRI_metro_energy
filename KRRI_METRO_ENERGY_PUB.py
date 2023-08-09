@@ -52,10 +52,10 @@ hide_menu_style = """
 st.set_page_config(layout="wide", page_title="KRRI_metro_Energy")
 st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
-tab0, tab1, tab2 = st.tabs(['프로그램 사용자 메뉴얼','패시브-액티브 기술을 적용한 2차 에너지 성능 분석', 'ZEB 취득을 위한 신재생 에너지 제안'])
+tab0, tab1, tab2 = st.tabs(['프로그램 개요 및 사용자 메뉴얼','패시브-액티브 기술을 적용한 2차에너지 성능 분석', 'ZEB 취득을 위한 신재생 에너지 제안'])
 
 #  필요한 데이터 불러오기
-@st.cache
+@st.cache_data
 def get_sun_data(path, sheet):
     data = pd.read_excel(path, sheet_name=sheet)
     return data
@@ -83,14 +83,19 @@ with tab0 :
 
     with con1 : 
         st.subheader('제로에너지 철도역사 건설 전략수립 의사결정 지원 프로그램')
+        st.subheader('')
+        
+        st.markdown("[:white_check_mark:사용자매뉴얼 다운로드](https://drive.google.com/uc?export=download&id=1F49ozhG9QcjKjMel8b26pfqRlR4StGpK)")
 
-        # @st.cache(suppress_st_warning=True)
-        # def show_image(path):
-        #     img = Image.open(path)
-        #     st.image(img)
+        st.markdown("![](https://drive.google.com/uc?export=download&id=1u0sfVfXqhU5MttcKqRbWPrK3YjCTLP3g)")
+        st.markdown("![](https://drive.google.com/uc?export=download&id=1jfKArop32QrhqNicHDYMLFVc_JqaVErx)")
 
-        # img4 = show_image('data/사용자 메뉴얼_2.jpg')
-        # img5 = show_image('data/사용자 메뉴얼_3.jpg')
+        #@st.cache_data
+        #def show_image(path):
+        #    img = Image.open(path)
+  
+        #img4 = show_image('data/사용자 메뉴얼_2.jpg')
+        #img5 = show_image('data/사용자 메뉴얼_3.jpg')
         # img6 = show_image('data/사용자 메뉴얼_4.jpg')
         # img7 = show_image('data/사용자 메뉴얼_5.jpg')
         # img8 = show_image('data/사용자 메뉴얼_6.jpg')
@@ -103,9 +108,6 @@ with tab0 :
         # img15 = show_image('data/사용자 메뉴얼_13.jpg')
         # img16 = show_image('data/사용자 메뉴얼_14.jpg')
         # img17 = show_image('data/사용자 메뉴얼_15.jpg')
-
-
-
 
         # img4 = Image.open('data/사용자 메뉴얼_2.jpg')
         # st.image(img4)
@@ -150,20 +152,30 @@ with tab0 :
 
 with tab1 : 
 
-    # 학습파일 불러오기
+    st.subheader('■ 패시브-액티브 기술을 적용한 2차에너지 성능분석 ')
+    st.markdown("###### - 예측 모델 학습데이터 입력 및 개선전후 기술요소 입력을 통한 에너지성능 확인")
 
+    st.caption('--------- ', unsafe_allow_html=False)
+    st.markdown("#### 1. 학습 데이터 업로드 및 모델성능 확인")
+    st.caption('         ', unsafe_allow_html=False)
+
+    st.markdown("##### ● 에너지 데이터 학습")
+    # 학습파일 불러오기
 
     df_raw = pd.read_excel('data/metro_sim_month.xlsx')
 
-    box_학습데이터_업로드 = st.checkbox('학습 데이터 업로드(필요시 체크)')
-    if box_학습데이터_업로드 : 
-        st.subheader(' 학습데이터 직접 업로드')
-        st.caption('(업로드 하지 않아도 기본값으로 작동합니다)', unsafe_allow_html=False)
-        # 학습할 파일을 직접 업로드 하고 싶을때
-        uploaded_file = st.file_uploader("Choose a file")
-        if uploaded_file is not None:
-            df_raw = pd.read_excel(uploaded_file)
-            st.write(df_raw)
+    basecon0a, basecon1a = st.columns([0.01, 4])
+    with basecon1a : 
+    
+        box_학습데이터_업로드 = st.checkbox('학습 데이터 업로드(필요시 체크, 미 업로드 시 기본모델로 시뮬레이션 수행)')
+        if box_학습데이터_업로드 : 
+            st.subheader(' 학습데이터 직접 업로드')
+            st.caption('(업로드 하지 않아도 기본값으로 작동합니다)', unsafe_allow_html=False)
+            # 학습할 파일을 직접 업로드 하고 싶을때
+            uploaded_file = st.file_uploader("Choose a file")
+            if uploaded_file is not None:
+                df_raw = pd.read_excel(uploaded_file)
+                st.write(df_raw)
 
 
     # df_raw.columns
@@ -251,16 +263,17 @@ with tab1 :
     r2 = r2_score(y_test, y_preds)
 
     st.caption('         ', unsafe_allow_html=False)
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 예측 모델 성능')
+    st.markdown("##### ● 예측모델 성능 확인")
     
+    basecon0b, basecon1b = st.columns([0.01, 4])
+    with basecon1b :
 
-    col1, col2, col3, = st.columns(3)
-    col1.metric(label='Variance score(r2_score)', value = np.round(r2, 3))
+        col1, col2, col3, = st.columns(3)
+        col1.metric(label='Variance score(r2_score)', value = np.round(r2, 3))
     # col2.metric(label='mean_squared_error', value = np.round(mse, 3))
-    col2.metric(label='Root mean squared error(RMSE)', value = np.round(rmse, 3))
+    #col2.metric(label='Root mean squared error(RMSE)', value = np.round(rmse, 3))
     # col4.metric(label='mean_absolute_error', value = np.round(mae, 3))
-    col3.metric(label='Mean absolute percentage error(MAPE)', value = np.round(mape, 3))
+    #col3.metric(label='Mean absolute percentage error(MAPE)', value = np.round(mape, 3))
     
     # print('절편값:',lr.intercept_)
     # print('회귀계수값:',np.round(lr.coef_, 1))
@@ -282,48 +295,52 @@ with tab1 :
     # Header of Specify Input Parameters
 
     #개선전후 공통정보
-    st.subheader('■ 철도역사 기본정보 입력')
-    basecon1, basecon2, basecon3, basecon4 = st.columns([0.5, 0.5, 0.5, 0.5])
+    st.caption('--------- ', unsafe_allow_html=False)
+    st.markdown("#### 2. 철도역사 기본정보 및 기술정보 입력")
+    st.caption('         ', unsafe_allow_html=False)
+    st.markdown("##### ● 철도역사 기본정보 입력")
+    
+    basecon0, basecon1, basecon2, basecon3, basecon4 = st.columns([0.01, 0.5, 0.5, 0.5, 0.5])
     with basecon1 : 
-        Ground_base = st.select_slider('지하층유무', options=[0, 1])
+        Ground_base = st.select_slider('① 지하층유무', options=[0, 1])
     with basecon2 :   
-        Basement_base = st.select_slider('지상층유무_개선전', options=[0, 1])
+        Basement_base = st.select_slider('② 지상층유무', options=[0, 1])
     with basecon3 :     
-        Floor_base = st.select_slider('전체층규모_개선전', options=[1,2,3,4,5])
+        Floor_base = st.select_slider('③ 전체층규모', options=[1,2,3,4,5])
     with basecon4 :   
-        Occupied_floor_area_base = st.number_input('연면적(㎡)', 1000, 100000, 6000)
+        Occupied_floor_area_base = st.number_input('④ 연면적(㎡)', 1000, 100000, 6000)
 
     # base 모델 streamlit 인풋
     st.caption(' ', unsafe_allow_html=False)
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 현 철도역사 건물 정보입력')
-    
+    #st.caption('--------', unsafe_allow_html=False)
+    #st.subheader('■ 현 철도역사 건물 정보입력')
+    st.markdown("##### ● 현 철도역사 건물 정보입력(개선전)")
         
     def user_input_features():
-        con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
+        con0, con1, con2, con3, con4 = st.columns([0.01, 0.5, 0.5, 0.5, 0.5])
         # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
             #Ground = st.select_slider('지하층유무_개선전', options=[0, 1])
             Ground = Ground_base
-            ACH50 = st.number_input('침기율(ACH/50pa)_개선전', 0, 50, 25)
-            Pump_efficiency = st.number_input('펌프효율_개선전', 0.0, 1.0, 0.7)
+            ACH50 = st.number_input('① 침기율(ACH/50pa)_개선전', 0.0, 50.0, 5.0)
+            Pump_efficiency = st.number_input('⑤ 펌프효율_개선전', 0.0, 1.0, 0.8)
             
         with con2 : 
             #Basement = st.select_slider('지상층유무_개선전', options=[0, 1])
             Basement = Basement_base
-            Chiller_COP = st.number_input('냉동기(COP)_개선전', 4, 9, 6)
-            heat_recover_effectiveness = st.number_input('전열교환효율_개선전', 0.0, 1.0, 0.7)
+            Chiller_COP = st.number_input('② 냉동기(COP)_개선전', 4, 9, 7)
+            heat_recover_effectiveness = st.number_input('⑥ 전열교환효율_개선전', 0.0, 1.0, 0.7)
        
         with con3 : 
             #Floor = st.select_slider('전체층규모_개선전', options=[1,2,3,4,5])
             Floor = Floor_base
-            Fan_total_efficiency = st.number_input('팬효율_개선전', 0.0, 1.0, 0.7)
-            Lighting_power_density_ = st.number_input('조명밀도(W/㎡)_개선전', 3, 20, 7)
+            Fan_total_efficiency = st.number_input('③ 팬효율_개선전', 0.0, 1.0, 0.8)
+            Lighting_power_density_ = st.number_input('⑦ 조명밀도(W/㎡)_개선전', 3, 20, 7)
       
         with con4 :
             #Occupied_floor_area = st.number_input('연면적(㎡)_개선전', 1000, 100000, 6000)
             Occupied_floor_area = Occupied_floor_area_base
-            AHU_economiser = st.select_slider('AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
+            AHU_economiser = st.select_slider('④ AHU_이코노마이저 적용유무_개선전', options=[0, 1])     
             
             data = {'ACH50': ACH50,
                     'Lighting_power_density_': Lighting_power_density_,
@@ -344,36 +361,37 @@ with tab1 :
     # ALT 모델 streamlit 인풋
      
        
-    st.caption('--------', unsafe_allow_html=False)
-    st.subheader('■ 개선하고자 하는 철도역사 건물 정보입력')
-    
+    #st.caption('--------', unsafe_allow_html=False)
+    #st.subheader('■ 개선하고자 하는 철도역사 건물 정보입력')
+    st.caption('         ', unsafe_allow_html=False)
+    st.markdown("##### ● 개선하고자 하는 철도역사 건물 정보입력(개선후)")
 
     def user_input_features2():
-        con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
+        con0, con1, con2, con3, con4 = st.columns([0.01, 0.5, 0.5, 0.5, 0.5])
             # ACH50 = st.sidebar.slider('ACH50', X_data.ACH50.min(), X_data.ACH50.max(), X_data.ACH50.mean())
         with con1 : 
             #Ground_2 = st.select_slider('지하층유무_개선후', options=[0, 1]) 
             Ground_2 = Ground_base
-            ACH50_2 = st.number_input('침기율(ACH/50pa)_개선후', 0, 50, 25)
-            Pump_efficiency_2 = st.number_input('펌프효율_개선후', 0.0, 1.0, 0.7)
+            ACH50_2 = st.number_input('① 침기율(ACH/50pa)_개선후', 0.0, 50.0, 5.0)
+            Pump_efficiency_2 = st.number_input('⑤ 펌프효율_개선후', 0.0, 1.0, 0.8)
             
         with con2 : 
             #Basement_2 = st.select_slider('지상층유무_개선후', options=[0, 1])
             Basement_2 = Basement_base
-            Chiller_COP_2 = st.number_input('냉동기(COP)_개선후', 4, 9, 6)
-            heat_recover_effectiveness_2 = st.number_input('전열교환효율_개선후', 0.0, 1.0, 0.7)
+            Chiller_COP_2 = st.number_input('② 냉동기(COP)_개선후', 4, 9, 7)
+            heat_recover_effectiveness_2 = st.number_input('⑥ 전열교환효율_개선후', 0.0, 1.0, 0.7)
             
         with con3 :  
             #Floor_2 = st.select_slider('전체층규모_개선후', options=[1,2,3,4,5])   
             Floor_2 = Floor_base
-            Fan_total_efficiency_2 = st.number_input('팬효율_개선후', 0.0, 1.0, 0.7)
-            Lighting_power_density__2 = st.number_input('조명밀도(W/㎡)_개선후', 3, 20, 7)
+            Fan_total_efficiency_2 = st.number_input('③ 팬효율_개선후', 0.0, 1.0, 0.8)
+            Lighting_power_density__2 = st.number_input('⑦ 조명밀도(W/㎡)_개선후', 3, 20, 7)
             
             
         with con4 :   
             #Occupied_floor_area_2 = st.number_input('연면적(㎡)_개선후', 1000, 100000, 6000)
             Occupied_floor_area_2 = Occupied_floor_area_base
-            AHU_economiser_2 = st.select_slider('AHU_이코노마이저 적용유무_개선후', options=[0, 1])
+            AHU_economiser_2 = st.select_slider('④ AHU_이코노마이저 적용유무_개선후', options=[0, 1])
             
             data2 = {'ACH50_2': ACH50_2,
                 'Lighting_power_density__2': Lighting_power_density__2,
@@ -455,14 +473,16 @@ with tab1 :
     
     # 예측값을 데이터 프레임으로 만들어본것을 그래프로 그려보기
     st.caption('--------- ', unsafe_allow_html=False)
-    st.subheader('■ 개선전후 연간 2차 에너지 사용량 그래프')
-        
-    con1, con2, con3, con4 = st.columns([0.5, 0.5, 0.5, 0.5])
+    st.markdown("#### 3. 개선전후 에너지성능 비교")
+    st.caption('         ', unsafe_allow_html=False)
+    st.markdown("##### ● 개선전후 연간 2차 에너지 사용량(그래프)")
+          
+    con0, con1, con2, con3, con4 = st.columns([0.01, 0.5, 0.5, 0.5, 0.5])
     with con1 : 
             
         fig = px.box(
             df_concat, x='index', y='kW', 
-            title='개선전후 원별비교 (BOXplot)', 
+            title='① 개선전후 원별비교 (BOXplot)', 
             hover_data=['kW'], 
             color='Alt' )
         fig.update_xaxes(rangeslider_visible=True)
@@ -472,7 +492,7 @@ with tab1 :
         
     with con2 : 
             
-        fig = px.bar(df_concat, x='index', y='kW', title='개선전후 원별비교', hover_data=['kW'], color='Alt' )
+        fig = px.bar(df_concat, x='index', y='kW', title='② 개선전후 원별비교', hover_data=['kW'], color='Alt' )
         fig.update_xaxes(rangeslider_visible=True)
         fig.update_layout(barmode='group') #alt별 구분
         # fig
@@ -482,7 +502,7 @@ with tab1 :
     with con3 :
         fig = px.bar(
         df_concat_연간전체, x='Alt', y='연간전기사용량_전체', 
-        title='개선전후 에너지사용량', 
+        title='③ 개선전후 에너지사용량', 
         hover_data=['연간전기사용량_전체'], 
         color='Alt' )
         fig.update_xaxes(rangeslider_visible=True)
@@ -493,7 +513,7 @@ with tab1 :
     with con4 : 
         fig = px.bar(
         df_concat_연간전체, x='Alt', y='단위면적당_연간전기사용량_전체', 
-        title='개선전후 단위면적당 에너지사용량', 
+        title='④ 개선전후 단위면적당 에너지사용량', 
         hover_data=['단위면적당_연간전기사용량_전체'], 
         color='Alt' )
         fig.update_xaxes(rangeslider_visible=True)
@@ -508,9 +528,10 @@ with tab1 :
 
     box_연간에너지_표 = st.checkbox('개선전후 연간 2차 에너지 사용량 표')
     if box_연간에너지_표 : 
-        st.caption('--------- ', unsafe_allow_html=False)
-        st.subheader('■ 개선전후 연간 2차 에너지 사용량 표')
-        con3, con4, con5 = st.columns([0.5, 0.5, 0.5])
+        #st.caption('--------- ', unsafe_allow_html=False)
+        st.markdown("##### ● 개선전후 연간 2차 에너지 사용량(표)")
+        #st.subheader('■ 개선전후 연간 2차 에너지 사용량 표')
+        con2, con3, con4, con5 = st.columns([0.01, 4/3, 4/3, 4/3])
         with con3 :
             st.markdown("###### 연간 전체 에너지 사용량")
             df_concat_연간전체
@@ -522,30 +543,31 @@ with tab1 :
             df_concat_월간전체_ALT
 
 
-    st.caption('--------- ', unsafe_allow_html=False)
-    st.subheader('■ 개선전후 월별 2차 에너지 사용량 그래프')
+    #st.caption('--------- ', unsafe_allow_html=False)
+    #st.subheader('■ 개선전후 월별 2차 에너지 사용량 그래프')
+    st.markdown("##### ● 개선전후 월별 2차 에너지 사용량(그래프)")
         
 
-    con5, con6, con7 = st.columns([0.5, 0.5, 0.5])
+    con4, con5, con6, con7 = st.columns([0.01, 4/3, 4/3, 4/3])
 
     with con5 : 
         # 예측값을 데이터 프레임으로 만들어본것을 그래프로 그려보기
             
-        fig = px.bar(df_concat, x='Month', y='kW', title='개선전후 월별비교', hover_data=['index'],color='Alt' )
+        fig = px.bar(df_concat, x='Month', y='kW', title='① 개선전후 월별비교', hover_data=['index'],color='Alt' )
         fig.update_xaxes(rangeslider_visible=True)
         fig.update_layout(barmode='group') #alt별 구분
         # fig
         st.plotly_chart(fig, use_container_width=True)
 
     with con6 : 
-        fig = px.bar(df_result, x='Month', y='kW', title='개선전 월간 원별결과', hover_data=['kW'], color='index' )
+        fig = px.bar(df_result, x='Month', y='kW', title='② 개선전 월간 원별결과', hover_data=['kW'], color='index' )
         fig.update_xaxes(rangeslider_visible=True)
         # fig.update_layout(barmode='group') #alt별 구분
         # fig
         st.plotly_chart(fig, use_container_width=True)
 
     with con7 :
-        fig = px.bar(df_result2, x='Month', y='kW', title='개선후 월간 원별결과', hover_data=['kW'], color='index' )
+        fig = px.bar(df_result2, x='Month', y='kW', title='③ 개선후 월간 원별결과', hover_data=['kW'], color='index' )
         fig.update_xaxes(rangeslider_visible=True)
         # fig.update_layout(barmode='group') #alt별 구분
         # fig
@@ -585,16 +607,17 @@ with tab1 :
 
     box_월간에너지_표 = st.checkbox('개선전후 월별 2차 에너지 사용량 표')
     if box_월간에너지_표 : 
-        st.caption('--------- ', unsafe_allow_html=False)
-        st.subheader('■ 개선전후 월별 2차 에너지 사용량 표')
+        #st.caption('--------- ', unsafe_allow_html=False)
+        #st.subheader('■ 개선전후 월별 2차 에너지 사용량 표')
+        st.markdown("##### ● 개선전후 월별 2차 에너지 사용량(표)")
         ## 표 원별 정리
         #전체 에너지 사용량_에너지원
         
-        con6, con7, con8, con9 = st.columns([0.5, 0.5, 0.5, 0.5])
+        con5, con6, con7, con8, con9 = st.columns([0.01, 0.5, 0.5, 0.5, 0.5])
         st.caption('                     ', unsafe_allow_html=False)
-        st.caption('--------- ', unsafe_allow_html=False)
+        #st.caption('--------- ', unsafe_allow_html=False)
         st.caption('                     ', unsafe_allow_html=False)
-        con10, con11, con12, con13 = st.columns([0.5, 0.5, 0.5, 0.5])
+        con00, con10, con11, con12, con13 = st.columns([0.01, 0.5, 0.5, 0.5, 0.5])
         with con6 :
             st.markdown("###### 연간 에너지 사용량_개선전")
             df_concat_alt_연간원별_개선전
@@ -649,10 +672,10 @@ with tab1 :
 with tab2 :
 
     st.subheader('■ 에너지 성능 향상을 위한 신재생에너지 제안 ')
-    st.markdown("###### - 철도역사 에너지 성능분석 데이터(2차에너지)를 기반으로 건축물 에너지 효율등급 1++등급 및 설정한 제로에너지 등급에 도달할 수 있는 신재생 설치 대안을 제안하고자 한다.")
-    st.markdown("#### 1. 용어설명")
-    img3 = Image.open('data/3page_calculation_flow.jpg')
-    st.image(img3)
+    st.markdown("###### - 철도역사 에너지 성능분석 데이터(2차에너지)를 기반으로 건축물 에너지 효율등급 1++등급 및 설정한 제로에너지 등급에 도달할 수 있는 신재생 설치 대안 제시")
+    #st.markdown("#### 1. 용어설명")
+    #img3 = Image.open('data/3page_calculation_flow.jpg')
+    #st.image(img3)
 
     #계산을 위해 필요한 정보 
     DF4 = df_concat #에너지사용량 예측값 불러오기 
@@ -679,48 +702,50 @@ with tab2 :
     #연간 1차에너지
     i_room_elex_drop_1차_연 = i_room_elex_drop_1차.groupby(['Alt']).agg( 연간전기사용량 = ('월간전기사용량', 'sum'), 단위면적당_연간전기사용량 = ('단위면적당_월간전기사용량', 'sum'))
     #홈페이지 나타내기
-    st.caption('                     ', unsafe_allow_html=False)
+    #st.caption('         ', unsafe_allow_html=False)
     st.caption('--------- ', unsafe_allow_html=False)
-    st.markdown("#### 2. 철도역사의 5대에너지(1차 에너지) 산정 과정 ")
-    con001,  con003,  con005,  con007 = st.columns(4)
+    st.markdown("#### 1. 철도역사의 5대에너지(1차 에너지) 산정 과정 ")
+    con000, con001,  con003,  con005,  con007 = st.columns([0.01,0.5,0.5,0.5,0.5])
     with con001 : 
-        st.markdown("###### ①에너지 사용량(2차에너지), kW")
+        st.markdown("###### ① 에너지 사용량(2차에너지), kW")
         건축물_2차_소요량_개선후
 
     with con003 : 
-        st.markdown("###### ②건축물 5대 에너지(2차에너지), kW")
+        st.markdown("###### ② 건축물 5대 에너지(2차에너지), kW")
         i_room_elex_drop_2차
 
     with con005 : 
-        st.markdown("###### ③건축물 5대 에너지(1차에너지), kW")
+        st.markdown("###### ③ 건축물 5대 에너지(1차에너지), kW")
         i_room_elex_drop_1차
 
     with con007 : 
-        st.markdown("###### ④건축물 5대 에너지(연간 1차에너지), kW")
+        st.markdown("###### ④ 건축물 5대 에너지(연간 1차에너지), kW")
         i_room_elex_drop_1차_연
         
     st.caption('                     ', unsafe_allow_html=False)
     st.caption('--------- ', unsafe_allow_html=False)
-    st.markdown("#### 3. 신재생 용량 산정을 위한 기본정보 입력")
-    con10, con11, con12, con13 = st.columns([0.5, 0.2, 0.5, 0.2])
+    st.markdown("#### 2. 신재생 용량 산정을 위한 기본정보 입력")
+    st.caption('                     ', unsafe_allow_html=False)
+    st.markdown("##### ● 건축물 기본정보")
+    con00, con10, con11, con12, con13 = st.columns([0.01, 0.7, 0.3, 0.7, 0.3])
 
     with con10 : 
-        st.markdown("###### ①건축물 기본정보")
+        
         지역명 = ['서울','강릉', '광주', '대관령', '대구', '대전', '목포','부산', '서산', '원주', '인천', '전주', '청주', '추풍령', '춘천', '포항', '흑산도']
-        지역 = st.selectbox('＊지역', 지역명)
+        지역 = st.selectbox('① 지역', 지역명)
 
         #area2 = st.number_input('＊연면적(㎡)', 1000, 100000, 6000)
         area2 = Occupied_floor_area_base
         #st.caption("(전체 연면적을 입력)", unsafe_allow_html=False)
         
-        air_ratio = st.number_input('＊공조면적비율(%)', 0, 100, 8)
+        air_ratio = st.number_input('② 공조면적비율(%)', 0, 100, 8)
         st.caption("(전체연면적 대비 외기와 직접 통하지 않으며 냉난방이 공급되는 면적의 비율)", unsafe_allow_html=False)
 
         area_air = area2*(air_ratio/100) #공조면적
         area_air2 = format(int(area_air),',d')
-        f' ▶ 공조면적 : {area_air2}㎡'
-
-
+        kkkk = f'{area_air2}㎡'
+        st.markdown(f"##### ▶ 공조면적 : :blue[{kkkk}]")
+        #st.subheader('' :blue[kkkk]'')
         #st.caption('                     ', unsafe_allow_html=False)
         #st.caption('--------- ', unsafe_allow_html=False)
         #st.markdown("###### ②지열에너지 기본정보")
@@ -732,8 +757,8 @@ with tab2 :
         empty()    
        
     with con12 : 
-        st.markdown("###### ②제로에너지목표등급 설정")
-        제로에너지등급 = st.number_input('＊제로에너지목표등급 설정', 1, 4, 4)
+        st.markdown("##### ● 제로에너지목표등급 설정")
+        제로에너지등급 = st.number_input('① 제로에너지목표등급 입력', 1, 4, 4)
         st.caption("(목표하고자 하는 제로에너지 등급 입력)", unsafe_allow_html=False)
 
         #st.markdown("###### ③태양광 모듈 1개에 대한 기본정보")
@@ -745,11 +770,11 @@ with tab2 :
         #집광효율 = st.number_input('＊집광효율 (%)', 0.00, 100.00, 21.6)
         #PER= st.number_input('＊Performance Ratio (%)', 0.00, 100.00, 75.00)
 
-    LENGTH = 1000
-    WIDTH = 2000
+    LENGTH = 1043
+    WIDTH = 2275
     경사각도 = 'South_45'
-    설치용량 = 400
-    집광효율 = 21.6
+    설치용량 = 485
+    집광효율 = 20.44
     PER = 75
 
     with con13 : 
@@ -783,29 +808,37 @@ with tab2 :
     result2 = pd.concat([result,mmm])
     ## result2
 
-    con010,  con020 = st.columns(2)
-    with con010 : 
-        st.markdown("#### 4. 신재생 필요 발전 용량 산정")
+    st.markdown("#### 3. 신재생 필요 발전 용량 산정")
 
-        st.text('▶ 개선후 철도역사의 단위면적당 연간 1차 에너지 소요량')
+    con000, con010, con0101, con020, con0201 = st.columns([0.01, 0.7, 0.3, 0.7, 0.3])
+    with con010 : 
+        st.caption('         ', unsafe_allow_html=False)
+        st.markdown("##### ● 필요 에너지 생산량 산정")
+        st.caption('         ', unsafe_allow_html=False)
+
+        st.text('① 개선후 철도역사의 단위면적당 연간 1차 에너지 소요량')
         result11 = round(i_room_elex_drop_1차_연.at['개선후', '단위면적당_연간전기사용량'],2)
-        f' {result11}kWh/㎡yr'
+        r1 = f'{result11}kWh/㎡yr'
+        st.markdown(f"###### ▶ :blue[{r1}]")
         #항목1_제로에너지 
-        st.text('▶ (항목1)선택한 ZEB등급 취득을 위해 필요한 단위면적당 연간 1차 에너지 생산량')
+        st.text('② (항목1)선택한 ZEB등급 취득을 위해 필요한 단위면적당 연간 1차 에너지 생산량')
         result22 = round(result2.at['제로에너지', '개선후'],2)
-        f'{result22} kWh/㎡yr'
-    
+        r2 = f'{result22} kWh/㎡yr'
+        st.markdown(f"###### ▶ :blue[{r2}]")
         #항목2_에효 1++(비주거용 140 미만)
-        st.text('▶ (항목2)건축물에너지효율등급 1++등급 취득을 위해 필요한 단위면적당 연간 1차 에너지 생산량')
+        st.text('③ (항목2)건축물에너지효율등급 1++등급 취득을 위해 필요한 단위면적당 연간 1차 에너지 생산량')
         result23 = round(result2.at['에너지효율등급', '개선후'],2)
-        f'{result23} kWh/㎡yr'
+        r3 = f'{result23} kWh/㎡yr'
+        st.markdown(f"###### ▶ :blue[{r3}]")
         #결론
-        st.text('▶ (결론1)단위면적당 연간 필요 1차 에너지 생산량')
+        st.text('④ (결론1)단위면적당 연간 필요 1차 에너지 생산량')
         result24 = round(result2.at['최대값', '개선후'],2)
-        f'{result24} kWh/㎡yr'
-        st.text('▶ (결론2)단위면적당 연간 필요 2차 에너지 생산량')
+        r4 = f'{result24} kWh/㎡yr'
+        st.markdown(f"###### ▶ :blue[{r4}]")
+        st.text('⑤ (결론2)단위면적당 연간 필요 2차 에너지 생산량')
         result25 = round(result24/2.75,2)
-        f'{result25} kWh/㎡yr'
+        r5 = f'{result25} kWh/㎡yr'
+        st.markdown(f"###### ▶ :blue[{r5}]")
     
     #설정값으로 인한 산출값
     집광면적 = LENGTH*WIDTH/1000000
@@ -901,10 +934,14 @@ with tab2 :
 
     #홈페이지 나타내기
     with con020 :
-        st.markdown("#### 5. 태양광 및  지열 필요 용량 산정")
+        st.markdown("##### ● 태양광 및  지열 필요 용량 산정")
+        
+        st.text('① 목표등급 달성을 위한 총 필요에너지생산량(공조면적기준)')
 
-        st.text('▶ 목표등급 달성을 위한 총 필요에너지생산량(공조면적기준)')
-        f'{A_alt1} kWh/yr'
+        r6 = format(int(A_alt1),',d')
+        r7 = f'{r6} kWh/yr'
+        
+        st.markdown(f"##### ▶ :blue[{r7}]")
 
         idx1 = [['개선후(태양광)', '개선후(태양광+지열)']]
         columns_list = [('태양광 용량(kW)'), ('태양광 집광면적(㎡)'), ('태양광 모듈개수(EA)'), ('지열 용량(kW)')]
@@ -914,7 +951,7 @@ with tab2 :
         st.dataframe(신재생설치계획.style.format("{:,.0f}"))
         
     st.caption('--------', unsafe_allow_html=False)  
-    st.markdown("#### 6. 신재생 설치로 인한 기대 개선 효과 분석 ")
+    st.markdown("#### 4. 신재생 설치로 인한 기대 개선 효과 분석 ")
 
     #필요정보 만들기
     #제안1 태양광 전제월간발전량(1차) = g*모듈개수
@@ -1029,21 +1066,23 @@ with tab2 :
     개선후_제안2_소나무식재효과 =round(개선후_태양광_지열_필요소나무-개선전_필요소나무,2)
 
     #홈페이지 나타내기 
-    con30, con31 = st.columns(2)
+    con000, con30, con301, con31, con311 = st.columns([0.01, 0.7, 0.3, 0.7, 0.3])
 
     # 표만들기
     with con30 :
         #연간발전량비교1=연간발전량비교.set_index(['month'])
-        st.markdown("##### (1) 연간에너지 소요량 비교")
-        fig3 = px.bar(연간발전량비교, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="연간 에너지 소요량 비교", barmode='group')
+        #st.markdown("##### (1) 연간에너지 소요량 비교")
+        fig3 = px.bar(연간발전량비교, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="① 연간 에너지 소요량 비교", barmode='group')
         fig3
         
     with con31 :
         월간소요량비교1=월간소요량비교.set_index(['month'])
-        st.markdown("##### (2) 월별에너지 소요량 비교")
-        fig2 = px.bar(월간소요량비교1, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="월간 에너지 소요량 비교", barmode='group')
+        #st.markdown("##### (2) 월별에너지 소요량 비교")
+        fig2 = px.bar(월간소요량비교1, y=['개선전', '개선후(태양광)', '개선후(태양광+지열)'], title="② 월간 에너지 소요량 비교", barmode='group')
         fig2
     
+    st.caption('--------- ', unsafe_allow_html=False)
+
     # 공사비 
     PR = DF7['가격']
     ACH50가격 = format(PR[0]*int(area_air),',d')
@@ -1055,17 +1094,17 @@ with tab2 :
     Lighting_power_density가격 = format(PR[6]*int(area_air),',d')
     지열가격1 = 0
     지열가격2 = format(int(PR[7]*y_alt2_kw),',d')
-    태양광1 = format(int((PR[8]*F_alt1)),',d')
-    태양광2 = format(int((PR[8]*sola_F_alt)),',d')
+    태양광1 = format(int((PR[8]*C_alt1)),',d')
+    태양광2 = format(int((PR[8]*sola_C_alt)),',d')
 
     st.caption('         ', unsafe_allow_html=False)
-    st.markdown("#### 7. 기술 요소별 예상 공사비 산정(공조면적 기준)")
+    st.markdown("#### 5. 기술 요소별 예상 공사비 산정(공조면적 기준)")
     st.caption('(각 항목 체크시 예상공사비 산정됨)', unsafe_allow_html=False)
     st.caption('         ', unsafe_allow_html=False)
-    con001, con002, con003, con004, con005 = st.columns([0.3, 0.3, 0.3, 0.3, 0.3])
+    con000, con001, con002, con003, con004, con005 = st.columns([0.01, 0.3, 0.3, 0.3, 0.3, 0.3])
     st.caption('         ', unsafe_allow_html=False)
     st.caption('         ', unsafe_allow_html=False)
-    con006, con007, con008, con009, con010 = st.columns([0.3, 0.3, 0.3, 0.3, 0.3])
+    con000, con006, con007, con008, con009, con010 = st.columns([0.01, 0.3, 0.3, 0.3, 0.3, 0.3])
 
     with con001 : 
         box2 = st.checkbox('기밀공사')
@@ -1137,7 +1176,7 @@ with tab2 :
             f'설치비용 지열 : 0 원'
 
     with con010 :
-        box11  = st.write('예상공사비')
+        box11  = st.write(':white_check_mark: 예상 총 공사비')
         if box2 == True :
             box2 = PR[0]*area_air
         else :
@@ -1174,19 +1213,21 @@ with tab2 :
             box8 = 0
 
         if box9 == True :
-            box9 = (PR[8]*F_alt1)
+            box9 = (PR[8]*C_alt1)
         else :
             box9 = 0
         
         if box10 == True :
-            box10 = (PR[8]*sola_F_alt) + round(PR[7]*y_alt2_kw,0)
+            box10 = (PR[8]*sola_C_alt) + round(PR[7]*y_alt2_kw,0)
         else :
             box10 = 0
         
         개선후_태양광_합계 = format(int(round(box2 + box3 + box4 + box5 + box6 + box7 + box8 + box9,0)),',d')
         개선후_태양광_지열_합계 = format(int(round(box2 + box3 + box4 + box5 + box6 + box7 + box8 + box10,0)),',d')
 
-        f'개선후(태양광) : {개선후_태양광_합계} 원'
-        f'개선후(태양광+지열) : {개선후_태양광_지열_합계} 원'
+        tp1 = f'{개선후_태양광_합계} 원'
+        tp2 = f'{개선후_태양광_지열_합계} 원'
+        st.markdown(f"###### 개선후(태양광) : :blue[{tp1}]")
+        st.markdown(f"###### 개선후(태양광+지열) : :blue[{tp2}]")
     
     
