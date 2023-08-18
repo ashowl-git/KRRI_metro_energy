@@ -52,7 +52,7 @@ hide_menu_style = """
 st.set_page_config(layout="wide", page_title="KRRI_metro_Energy")
 st.markdown(hide_menu_style, unsafe_allow_html=True) # hide the hamburger menu?
 
-tab0, tab1, tab2 = st.tabs(['프로그램 개요 및 사용자 메뉴얼','패시브-액티브 기술을 적용한 2차에너지 성능 분석', 'ZEB 취득을 위한 신재생 에너지 제안'])
+tab0, tab1, tab2 = st.tabs(['프로그램 개요 및 사용자 메뉴얼','패시브-액티브 기술을 적용한 2차에너지 성능분석', 'ZEB 취득을 위한 신재생 에너지 제안'])
 
 #  필요한 데이터 불러오기
 @st.cache_data
@@ -85,10 +85,14 @@ with tab0 :
         st.subheader('제로에너지 철도역사 건설 전략수립 의사결정 지원 프로그램')
         st.subheader('')
         
-        st.markdown("[:white_check_mark:사용자매뉴얼 다운로드](https://drive.google.com/uc?export=download&id=1F49ozhG9QcjKjMel8b26pfqRlR4StGpK)")
+        st.markdown("[:white_check_mark:사용자매뉴얼 다운로드](https://drive.google.com/uc?export=download&id=1aQSsvtjptAJpWD1y1hM8zrKT25aUQgQt)")
 
-        st.markdown("![](https://drive.google.com/uc?export=download&id=1u0sfVfXqhU5MttcKqRbWPrK3YjCTLP3g)")
-        st.markdown("![](https://drive.google.com/uc?export=download&id=1jfKArop32QrhqNicHDYMLFVc_JqaVErx)")
+        st.markdown("![](https://drive.google.com/uc?export=download&id=1M1qtS3qPJ3qxzYyQivBRjHGpYpIU7C4l)")
+        st.markdown("![](https://drive.google.com/uc?export=download&id=1uvrANk6R_HWrh7Xnpvk2VTu2dCjFgiiN)")
+        st.markdown("![](https://drive.google.com/uc?export=download&id=117CYlBbmw4g1LRMX-T1Tid0mQ_pWLEgs)")
+        st.markdown("![](https://drive.google.com/uc?export=download&id=1QnHSI5D96KN1C5FZVZD1oDE5lTdj8CG_)")
+        st.markdown("![](https://drive.google.com/uc?export=download&id=1dqo2H-JxEgOnrkIl976aj7EBX6r7c5Eb)")
+
 
         #@st.cache_data
         #def show_image(path):
@@ -671,7 +675,7 @@ with tab1 :
     
 with tab2 :
 
-    st.subheader('■ 에너지 성능 향상을 위한 신재생에너지 제안 ')
+    st.subheader('■ ZEB 취득을 위한 신재생에너지 제안 ')
     st.markdown("###### - 철도역사 에너지 성능분석 데이터(2차에너지)를 기반으로 건축물 에너지 효율등급 1++등급 및 설정한 제로에너지 등급에 도달할 수 있는 신재생 설치 대안 제시")
     #st.markdown("#### 1. 용어설명")
     #img3 = Image.open('data/3page_calculation_flow.jpg')
